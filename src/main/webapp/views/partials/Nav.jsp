@@ -1,13 +1,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
+<jsp:useBean id="suppliers" scope="request" type="java.util.List<com.hcmute.mobilestore.models.Supplier>"/>
 <div class="header">
     <nav class="navbar navbar-expand-lg navbar-light " style="background-image: linear-gradient(#ea8215, #eca45d)">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-lg-between"  id="navbarSupportedContent">
-            <a href="${pageContext.request.contextPath}/Home"><img src="${pageContext.request.contextPath}/public/imgs/logo.png" class="img-fluid rounded-top"
+            <a href="${pageContext.request.contextPath}/Home"><img src="http://assets.stickpng.com/images/584290baa6515b1e0ad75ac2.png" class="img-fluid rounded-top"
                                                                    alt="No Loading" style=" width:140px ;height: 70px"></a>
             <nav class="navbar navbar-light d-inline">
                 <div class="form-inline">
@@ -20,9 +20,9 @@
                 </div>
             </nav>
             <ul class="navbar-nav">
-                <li class="nav-item active mr-4 "><a href="${pageContext.request.contextPath}/WatchList?uid=${authUser.id}"  id="watchlist" class="text-light " style="font-weight: bold" >
+                <li class="nav-item active mr-4 "><a href=""  id="watchlist" class="text-light " style="font-weight: bold" >
                     <i class="fa fa-heart text-danger" aria-hidden="true"></i>
-                    WatchList
+                    Shopping Cart
                 </a>
                 </li>
                 <li class="nav-item active mr-4 dropdown">
@@ -93,28 +93,14 @@
         </button>
         <div class="collapse navbar-collapse justify-content-around" id="navbarNavDropdown">
             <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link mr-5 ml-5 text-success" href="${pageContext.request.contextPath}/Home#top">
-                        <i class="fa fa-home text-success" aria-hidden="true"></i>
-                        Home <span class="sr-only">(current)</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link mr-5 ml-5 text-danger" href="${pageContext.request.contextPath}/Home#hot">
-                        <i class="fa fa-newspaper-o text-danger" aria-hidden="true"></i>
-                        Hot
-                    </a>
-                </li>
-                <li class="nav-item mr-5 ml-5">
-                    <a class="nav-link text-warning" href="${pageContext.request.contextPath}/History?uid=${authUser.id}">
-                        <i class="fa fa-history text-warning" aria-hidden="true"></i>
-                        History</a>
-                </li>
-                <li class="nav-item mr-5 ml-5">
-                    <a class="nav-link text-info" href="#contact">
-                        <i class="fa fa-address-card text-info" aria-hidden="true"></i>
-                        Contact us</a>
-                </li>
+                <c:forEach items="${suppliers}" var="supplier">
+                    <li class="nav-item active">
+                        <a class="nav-link mr-5 ml-5 text-success" href="${pageContext.request.contextPath}/Home#top">
+<%--                            <i class="fa fa-home text-success" aria-hidden="true"></i>--%>
+                            ${supplier.name}<span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                </c:forEach>
             </ul>
         </div>
     </nav>
