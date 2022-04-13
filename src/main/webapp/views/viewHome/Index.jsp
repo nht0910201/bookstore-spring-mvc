@@ -8,9 +8,13 @@
                 <div class="row mt-2">
                     <c:forEach items="${products}" var="product">
                         <div class="card mr-1 mt-1" style="width: 18rem;">
-                            <img src="https://cdn.tgdd.vn/Products/Images/42/262402/Samsung-Galaxy-A13-cam-thumb-600x600.jpg" class="card-img-top" alt="...">
+                            <a href="${pageContext.request.contextPath}/Product/Detail?pro_id=${product.id}"><img src="https://cdn.tgdd.vn/Products/Images/42/262402/Samsung-Galaxy-A13-cam-thumb-600x600.jpg" class="card-img-top" alt="..."></a>
                             <div class="card-body">
-                                    <h5 class="card-title">${product.name}</h5>
+                                    <h5 class="card-title">
+                                        <a href="${pageContext.request.contextPath}/Product/Detail?pro_id=${product.id}">
+                                                ${product.name}
+                                        </a>
+                                    </h5>
                                     <p class="card-text">
                                         <b>Mô tả:</b><br>${product.description}
                                     </p>
@@ -26,8 +30,8 @@
                                     Detail
                                 </a>
                                 <a name="" id="" class="btn btn-outline-danger" href="#" role="button">
-                                    <i class="fa fa-heart" aria-hidden="true"></i>
-                                    Favourite
+                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                    Add to Cart
                                 </a>
                             </div>
                         </div>
