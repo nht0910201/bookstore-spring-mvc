@@ -7,7 +7,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-lg-between"  id="navbarSupportedContent">
-            <a href="${pageContext.request.contextPath}/Home"><img src="http://assets.stickpng.com/images/584290baa6515b1e0ad75ac2.png" class="img-fluid rounded-top"
+            <a href="${pageContext.request.contextPath}/Home"><img src="https://sp-ao.shortpixel.ai/client/q_glossy,ret_img/https://lambanner.com/wp-content/uploads/2020/04/MNT-DESIGN-10-MEO-THIET-KE-LOGO-1130x570.jpg" class="img-fluid rounded-top"
                                                                    alt="No Loading" style=" width:140px ;height: 70px"></a>
             <nav class="navbar navbar-light d-inline">
                 <div class="form-inline">
@@ -88,17 +88,20 @@
     </nav>
     <!-- Nav Bar -->
     <nav class="navbar navbar-expand-lg navbar-light nav-fix " style="background-color: #F5F5F5">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-around" id="navbarNavDropdown">
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 <c:forEach items="${suppliers}" var="supplier">
-                    <li class="nav-item active">
-                        <a class="nav-link mr-5 ml-5 text-success" href="${pageContext.request.contextPath}/Home#top">
-<%--                            <i class="fa fa-home text-success" aria-hidden="true"></i>--%>
-                            ${supplier.name}<span class="sr-only">(current)</span>
-                        </a>
+                    <li class="nav-item active mr-1">
+                        <div class="dropdown">
+                            <a class="btn btn-success dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
+                                    ${supplier.name}
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </div>
                     </li>
                 </c:forEach>
             </ul>
