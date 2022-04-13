@@ -34,18 +34,18 @@
                                 <c:set var="nameParts" value="${fn:split(authUser.name, ' ')}"/>
                                 Hi, <b>${nameParts[0]}!</b>
                                 <c:choose>
-                                    <c:when test="${authUser.role == 0}">${"(Admin)"}</c:when>
-                                    <c:when test="${authUser.role == 1}">${"(Bidder)"}</c:when>
-                                    <c:otherwise>${"(Seller)"}</c:otherwise>
+                                    <c:when test="${role == 0}">${"(Quản lý)"}</c:when>
+                                    <c:when test="${role == 1}">${"(Nhân viên)"}</c:when>
+                                    <c:otherwise>${"(Khách hàng)"}</c:otherwise>
                                 </c:choose>
                             </a>
                             <ul class="dropdown-menu mt-0 dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                                 <c:choose>
-                                    <c:when test="${authUser.role == 1}"><li><a class="dropdown-item" href="${pageContext.request.contextPath}/Account/BidderProfile">
-                                        <i class="fa fa-user" aria-hidden="true"></i> Profile
+                                    <c:when test="${role == 1}"><li><a class="dropdown-item" href="${pageContext.request.contextPath}/Account/BidderProfile">
+                                        <i class="fa fa-user" aria-hidden="true"></i> Trang cá nhân
                                     </a></li></c:when>
-                                    <c:when test="${authUser.role == 0}"><li><a class="dropdown-item" href="${pageContext.request.contextPath}/Account/Profile">
-                                        <i class="fa fa-user" aria-hidden="true"></i> Profile
+                                    <c:when test="${role == 0}"><li><a class="dropdown-item" href="${pageContext.request.contextPath}/Account/Profile">
+                                        <i class="fa fa-user" aria-hidden="true"></i> Trang cá nhân
                                     </a></li>
                                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/Admin">
                                             <i class="fa fa-cog" aria-hidden="true"></i>

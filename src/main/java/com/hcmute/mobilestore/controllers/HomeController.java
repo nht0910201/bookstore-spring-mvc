@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HomeController {
     @Autowired
     private SupplierRepository supplierRepository;
-    @GetMapping(path = "/home")
+    @GetMapping(path = "/Home")
     public String showHomePage(ModelMap modelMap) {
         return "viewHome/Index";
     }
