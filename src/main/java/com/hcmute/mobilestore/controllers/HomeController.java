@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HomeController {
     @Autowired
     private ProductRepository productRepository;
-    @GetMapping(path = "/home")
+    @GetMapping(path = "/Home")
     public String showHomePage(ModelMap modelMap) {
         Iterable<Product> products=productRepository.findAll();
         modelMap.addAttribute("products",products);
