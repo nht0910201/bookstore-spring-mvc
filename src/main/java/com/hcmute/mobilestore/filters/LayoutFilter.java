@@ -8,7 +8,8 @@ import org.springframework.stereotype.Component;
 import javax.servlet.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-@WebFilter(filterName = "LayoutFilter",urlPatterns = "/*")
+@Component
+@WebFilter(filterName = "LayoutFilter",value = "/*")
 public class LayoutFilter implements Filter {
     public void init(FilterConfig config) throws ServletException {
     }
