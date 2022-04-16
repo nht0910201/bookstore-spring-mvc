@@ -8,15 +8,14 @@ import javax.persistence.Table;
 @Table(name = "cart")
 public class Cart {
     @Id
-    private int id;
+    private int id,accountId;
     private int productId;
     private String productName;
-    private int price;
+    private double price;
     private int quantity;
-    private int accountId;
+    //private int accountId;
 
-    public Cart(int id, int productId, String productName, int price, int quantity, int accountId) {
-        this.id = id;
+    public Cart(int productId, String productName, double price, int quantity, int accountId) {
         this.productId = productId;
         this.productName = productName;
         this.price = price;
@@ -52,7 +51,7 @@ public class Cart {
         this.productName = productName;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
