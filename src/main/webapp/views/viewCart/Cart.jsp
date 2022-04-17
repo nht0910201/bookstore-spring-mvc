@@ -42,31 +42,7 @@
                     let quantity = parseInt($(this).val(), 10);
                     let price = parseFloat($(this).next().val());
                     $(this).next().next().next().text(quantity*price);
-
-                    $.getJSON(url, function (data) {
-                        if (data === false) {
-                            swal({
-                                title: "Không thành công!",
-                                text: "Xoá sản phẩm không thành công",
-                                icon: "error",
-                                button: "OK!",
-                                dangerMode: true,
-                                closeOnClickOutside: false,
-                            });
-                        } else {
-                            swal({
-                                title: "Xoá thành công",
-                                text: "Xoá sản phẩm thành công",
-                                icon: "success",
-                                button: "OK!",
-                                closeOnClickOutside: false,
-                            })
-                                .then(function () {
-                                        location.reload();
-                                    }
-                                );
-                        }
-                    });
+                    
                 });
             });
 
