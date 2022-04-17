@@ -87,7 +87,7 @@
                 </div>
             </div>
             <div class="card-footer text-muted">
-                <button class="btn btn-danger" onclick="add('${pageContext.request.contextPath}/Product/AddToCart?pro_id=${product.id}&pro_name=${product.name}&price=${product.price}&quantity=1&acc_id=1')" role="button">
+                <button class="btn btn-danger" onclick="add('${pageContext.request.contextPath}/Product/AddToCart?pro_id=${product.id}&pro_name=${product.name}&price=${product.price}&quantity=1&acc_id=${authUser.id}')" role="button">
                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                     Add to Cart
                 </button>

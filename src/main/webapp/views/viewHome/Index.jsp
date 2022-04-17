@@ -2,6 +2,30 @@
 <%@ taglib prefix="m1" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <m1:MainLayout>
+    <jsp:attribute name="js">
+        <script>
+            function add (url){
+                $.getJSON(url, function (data) {
+                    if (data === false) {
+                        swal({
+                            title: "Không thể thêm!",
+                            text: "Sản phẩm đã có trong giỏ hàng !",
+                            icon: "error",
+                            button: "OK!",
+                            dangerMode: true,
+                            closeOnClickOutside: false,
+                        });
+                    } else swal({
+                        title: "Thêm thành công!",
+                        text: "Bạn đã thêm sản phẩm vào giỏ hàng",
+                        icon: "success",
+                        button: "OK!",
+                        closeOnClickOutside: false,
+                    });
+                });
+            }
+        </script>
+    </jsp:attribute>
     <jsp:body>
         <div class="col-2">
 
@@ -29,14 +53,14 @@
                                     <li class="list-group-item">Giá bán: ${product.price}</li>
                                 </ul>
                                 <div class="card-body">
-                                    <a name="" id="" class="btn btn-outline-info" href="#" role="button">
+                                    <a class="btn btn-outline-info" href="${pageContext.request.contextPath}/Product/Detail?pro_id=${product.id}" role="button">
                                         <i class="fa fa-eye" aria-hidden="true"></i>
                                         Detail
                                     </a>
-                                    <a name="" id="" class="btn btn-outline-danger" href="#" role="button">
+                                    <button onclick="add('${pageContext.request.contextPath}/Product/AddToCart?pro_id=${product.id}&pro_name=${product.name}&price=${product.price}&quantity=1&acc_id=${authUser.id}')" class="btn btn-outline-danger" role="button">
                                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                         Add to Cart
-                                    </a>
+                                    </button>
                                 </div>
                             </div>
                         </c:forEach>
@@ -47,6 +71,5 @@
         <div class="col-2">
 
         </div>
-
     </jsp:body>
 </m1:MainLayout>

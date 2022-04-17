@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import java.util.Optional;
 
 @Controller
@@ -21,6 +22,7 @@ import java.util.Optional;
 public class ProductController {
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
     private CartRepository cartRepository;
     @GetMapping(value = "/Detail")
     public String detailProduct(ModelMap modelMap, HttpServletRequest request) {
@@ -30,25 +32,14 @@ public class ProductController {
         return "viewProduct/Detail";
     }
     @GetMapping(value = "/AddToCart")
-    public String addToCart(ModelMap modelMap,HttpServletRequest request,HttpServletResponse response) throws IOException {
-        int Pro_id = Integer.parseInt(request.getParameter("pro_id"));
+    public void addToCart(ModelMap modelMap,HttpServletRequest request,HttpServletResponse response) throws IOException {
+        int Pro_id = Integer.parseInt(request.getParameter("pro_id"),10);
         String Pro_name = request.getParameter("pro_name");
-        double Price = Double.parseDouble(request.getParameter("price"));
-        int quantity = Integer.parseInt(request.getParameter("quantity"));
-        int Acc_id=Integer.parseInt(request.getParameter("acc_id"));
-        //Optional<Product> product=productRepository.findById(Pro_id);
-        Cart cart = cartRepository.findProductInCartById(Pro_id,Acc_id);
-        if (cart==null)
-        {
-            Cart newCart = new Cart(Pro_id,Pro_name,Price,quantity,1);
-            cartRepository.save(newCart);
-            PrintWriter out = response.getWriter();
-            response.setContentType("application/json");
-            response.setCharacterEncoding("utf-8");
-            out.print(true);
-            out.flush();
-        }
-        else
+        Double Price = Double.parseDouble(request.getParameter("price"));
+        int quantity = Integer.parseInt(request.getParameter("quantity"),10);
+        int Acc_id=Integer.parseInt(request.getParameter("acc_id"),10);
+        Optional<Cart> cart = cartRepository.findProductInCartById(Pro_id,Acc_id);
+        if (cart.isPresent())
         {
             PrintWriter out = response.getWriter();
             response.setContentType("application/json");
@@ -56,6 +47,15 @@ public class ProductController {
             out.print(false);
             out.flush();
         }
-        return "viewProduct/Detail";
+        else
+        {
+            Cart newCart = new Cart(Pro_id,Pro_name,Price,quantity,Acc_id);
+            cartRepository.save(newCart);
+            PrintWriter out = response.getWriter();
+            response.setContentType("application/json");
+            response.setCharacterEncoding("utf-8");
+            out.print(true);
+            out.flush();
+        }
     }
 }

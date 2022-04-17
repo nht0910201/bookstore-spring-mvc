@@ -21,7 +21,7 @@
             </nav>
             <ul class="navbar-nav">
                 <li class="nav-item active mr-4 ">
-                    <a href="${pageContext.request.contextPath}/Cart"  id="watchlist" class="text-light " style="font-weight: bold" >
+                    <a href="${pageContext.request.contextPath}/Cart?acc_id=${authUser.id}"  id="watchlist" class="text-light " style="font-weight: bold" >
                     <i class="fa fa-heart text-danger" aria-hidden="true"></i>
                     Shopping Cart
                 </a>
