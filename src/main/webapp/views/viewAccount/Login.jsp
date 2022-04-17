@@ -4,6 +4,19 @@
 
 
 <t:account>
+        <jsp:attribute name="css">
+            <style>
+                body {
+                    height: 100vh;
+                    background-color: white;
+                    background-size: 100%;
+                }
+                form {
+                    width: 35%;
+                    padding: 25px 0;
+                }
+            </style>
+    </jsp:attribute>
     <jsp:attribute name="js">
         <script>
             // Log in form

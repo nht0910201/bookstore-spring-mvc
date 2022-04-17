@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Optional;
 
 @Controller
 @RequestMapping(path = "/Account")
@@ -109,5 +110,39 @@ public class AccountController {
         session.setAttribute("auth", false);
         session.setAttribute("authUser", new User());
         return "redirect:/Home";
+    }
+
+    //    Hiện trang cá nhân
+    @GetMapping(value = "/Profile/{id}")
+    public String getProfile(ModelMap modelMap,
+                            @PathVariable int id )
+    {
+        Optional<User> user = userRepository.findById(id);
+        if (user.isPresent()) {
+            modelMap.addAttribute("users", user.get());
+            return "viewAccount/Profile";
+        } else return "redirect:/Home";
+    }
+
+    //    Chỉnh sửa thông tin
+    @PostMapping(value = "/Profile/{id}/Update")
+    public String updateUser(ModelMap modelMap, HttpServletRequest request,
+                             @PathVariable int id )
+    {
+        String name = request.getParameter("name");
+        String address = request.getParameter("address");
+        String phone_number = request.getParameter("phone_number");
+        User updateUser = userRepository.findById(id).get();
+        updateUser.setAddress(address);
+        updateUser.setName(name);
+        updateUser.setPhone_number(phone_number);
+        try {
+            userRepository.save(updateUser);
+            HttpSession session = request.getSession();
+            session.setAttribute("authUser", updateUser);
+            return "redirect:/Account/Profile/"+id;
+        } catch (Exception e) {
+            return "redirect:/Account/Profile/"+id;
+        }
     }
 }

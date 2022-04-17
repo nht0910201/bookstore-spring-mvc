@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <jsp:useBean id="suppliers" scope="request" type="java.util.List<com.hcmute.mobilestore.models.Supplier>"/>
@@ -34,50 +35,47 @@
                                 <c:set var="nameParts" value="${fn:split(authUser.name, ' ')}"/>
                                 Hi, <b>${nameParts[0]}!</b>
                                 <c:choose>
-                                    <c:when test="${role == 0}">${"(Quản lý)"}</c:when>
-                                    <c:when test="${role == 1}">${"(Nhân viên)"}</c:when>
-                                    <c:otherwise>${"(Khách hàng)"}</c:otherwise>
+                                    <c:when test="${role == 0}">(Quản lý)</c:when>
+                                    <c:when test="${role == 1}">(Nhân viên)</c:when>
+                                    <c:otherwise>(Khách hàng)</c:otherwise>
                                 </c:choose>
                             </a>
                             <ul class="dropdown-menu mt-0 dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                                 <c:choose>
-                                    <c:when test="${role == 1}"><li><a class="dropdown-item" href="${pageContext.request.contextPath}/Account/BidderProfile">
-                                        <i class="fa fa-user" aria-hidden="true"></i> Trang cá nhân
-                                    </a></li></c:when>
-                                    <c:when test="${role == 0}"><li><a class="dropdown-item" href="${pageContext.request.contextPath}/Account/Profile">
+                                    <c:when test="${role != 2}"><li><a class="dropdown-item" href="${pageContext.request.contextPath}/Account/Profile/${authUser.id}">
                                         <i class="fa fa-user" aria-hidden="true"></i> Trang cá nhân
                                     </a></li>
                                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/Admin">
                                             <i class="fa fa-cog" aria-hidden="true"></i>
-                                            Manage
+                                            Quản lý
                                         </a></li>
                                     </c:when>
                                     <c:otherwise>
-                                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/Account/SellerProfile">
-                                            <i class="fa fa-user" aria-hidden="true"></i> Profile
+                                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/Account/Profile/${authUser.id}">
+                                            <i class="fa fa-user" aria-hidden="true"></i> Trang cá nhân
                                         </a></li>
                                     </c:otherwise>
                                 </c:choose>
 
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/Account/YourProduct?uid=${authUser.id}">
-                                    <i class="fa fa-product-hunt" aria-hidden="true"></i> Your Products
+                                    <i class="fa fa-product-hunt" aria-hidden="true"></i> Đơn hàng của bạn
                                 </a></li>
                                 <li><a class="dropdown-item" href="javascript: $('#frmLogout').submit()">
-                                    <i class="fa fa-sign-out" aria-hidden="true"></i> Sign out
+                                    <i class="fa fa-sign-out" aria-hidden="true"></i> Đăng xuất
                                 </a></li>
                             </ul>
                         </c:when>
                         <c:otherwise>
                             <a href="${pageContext.request.contextPath}/Account/Login" class="text-light " style="font-weight: bold">
                                 <i class="fa fa-user-circle-o" aria-hidden="true"></i>
-                                Login/Register
+                                Đăng nhập/Đăng ký
                             </a>
                             <ul class="dropdown-menu mt-0 dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/Account/Login">
-                                    <i class="fa fa-sign-in mr-1" aria-hidden="true"></i>Login
+                                    <i class="fa fa-sign-in mr-1" aria-hidden="true"></i> Đăng nhập
                                 </a></li>
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/Account/Register">
-                                    <i class="fa fa-user-plus mr-1" aria-hidden="true"></i> Register
+                                    <i class="fa fa-user-plus mr-1" aria-hidden="true"></i> Đăng ký
                                 </a></li>
                             </ul>
                         </c:otherwise>

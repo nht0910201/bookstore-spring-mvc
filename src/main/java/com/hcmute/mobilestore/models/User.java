@@ -10,11 +10,18 @@ public class User {
     @Id
     private int id;
     private String name, email, address, phone_number;
-
     public User() {
     }
 
     public User(String name, String email, String address, String phone_number) {
+        this.name = name;
+        this.email = email;
+        this.address = address;
+        this.phone_number = phone_number;
+    }
+
+    public User(int id, String name, String email, String address, String phone_number) {
+        this.id = id;
         this.name = name;
         this.email = email;
         this.address = address;
