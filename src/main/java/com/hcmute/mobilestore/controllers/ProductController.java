@@ -49,7 +49,7 @@ public class ProductController {
         }
         else
         {
-            Cart newCart = new Cart(Pro_id,Pro_name,Price,quantity,Acc_id);
+            Cart newCart = new Cart(Pro_id,Pro_name,Price,quantity,Acc_id, 1);
             cartRepository.save(newCart);
             PrintWriter out = response.getWriter();
             response.setContentType("application/json");

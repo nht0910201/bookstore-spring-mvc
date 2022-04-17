@@ -12,7 +12,7 @@ public interface CartRepository extends CrudRepository<Cart,String> {
     @Query("from Cart c where c.pro_id=:pro_id and c.account_id=:acc_id")
     Optional<Cart> findProductInCartById(@Param("pro_id") int pro_id, @Param("acc_id") int acc_id);
 
-    @Query("from Cart c where c.account_id=:acc_id")
+    @Query("from Cart c where c.account_id=:acc_id and c.status = 1")
     List<Cart> findCartById(@Param("acc_id") int acc_id);
 
     @Query("delete from Cart c where c.pro_id=:pro_id and c.account_id=:acc_id")

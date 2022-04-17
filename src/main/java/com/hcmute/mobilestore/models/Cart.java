@@ -14,13 +14,28 @@ public class Cart {
     private double price;
     private int quantity;
     private int account_id;
+    // 1: chưa thanh toán; 0: đã thanh toán
+    private int status;
 
-    public Cart(int pro_id, String pro_name, double price, int quantity, int account_id) {
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public Cart(int pro_id, String pro_name, double price, int quantity, int account_id, int status) {
         this.pro_id = pro_id;
         this.pro_name = pro_name;
         this.price = price;
         this.quantity = quantity;
         this.account_id = account_id;
+        this.status = status;
     }
 
     public Cart() {
