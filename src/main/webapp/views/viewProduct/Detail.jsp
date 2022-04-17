@@ -1,8 +1,33 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="m1" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <jsp:useBean id="product" scope="request" type="com.hcmute.mobilestore.models.Product"/>
 <m1:MainLayout>
+    <jsp:attribute name="js">
+        <script>
+            function add (url){
+                $.getJSON(url, function (data) {
+                    if (data === false) {
+                        swal({
+                            title: "Không thể thêm!",
+                            text: "Sản phẩm đã có trong giỏ hàng !",
+                            icon: "error",
+                            button: "OK!",
+                            dangerMode: true,
+                            closeOnClickOutside: false,
+                        });
+                    } else swal({
+                        title: "Thêm thành công!",
+                        text: "Bạn đã thêm sản phẩm vào giỏ hàng",
+                        icon: "success",
+                        button: "OK!",
+                        closeOnClickOutside: false,
+                    });
+                });
+            }
+        </script>
+    </jsp:attribute>
     <jsp:body>
         <div class="card text-center">
             <div class="card-header">
@@ -62,10 +87,10 @@
                 </div>
             </div>
             <div class="card-footer text-muted">
-                <a name="" id="" class="btn btn-danger" href="#" role="button">
+                <button class="btn btn-danger" onclick="add('${pageContext.request.contextPath}/Product/AddToCart?pro_id=${product.id}&pro_name=${product.name}&price=${product.price}&quantity=1&acc_id=${authUser.id}')" role="button">
                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                     Add to Cart
-                </a>
+                </button>
             </div>
         </div>
     </jsp:body>

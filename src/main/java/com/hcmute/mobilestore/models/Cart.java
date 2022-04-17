@@ -9,25 +9,22 @@ import javax.persistence.Table;
 public class Cart {
     @Id
     private int id;
-    private int productId;
-    private String productName;
-    private int price;
+    private int pro_id;
+    private String pro_name;
+    private double price;
     private int quantity;
-    private int accountId;
+    private int account_id;
 
-    public Cart(int id, int productId, String productName, int price, int quantity, int accountId) {
-        this.id = id;
-        this.productId = productId;
-        this.productName = productName;
+    public Cart(int pro_id, String pro_name, double price, int quantity, int account_id) {
+        this.pro_id = pro_id;
+        this.pro_name = pro_name;
         this.price = price;
         this.quantity = quantity;
-        this.accountId = accountId;
+        this.account_id = account_id;
     }
 
     public Cart() {
-
     }
-
     public int getId() {
         return id;
     }
@@ -36,27 +33,27 @@ public class Cart {
         this.id = id;
     }
 
-    public int getProductId() {
-        return productId;
+    public int getPro_id() {
+        return pro_id;
     }
 
-    public void setProductId(int productId) {
-        this.productId = productId;
+    public void setPro_id(int pro_id) {
+        this.pro_id = pro_id;
     }
 
-    public String getProductName() {
-        return productName;
+    public String getPro_name() {
+        return pro_name;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setPro_name(String pro_name) {
+        this.pro_name = pro_name;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 
@@ -68,11 +65,11 @@ public class Cart {
         this.quantity = quantity;
     }
 
-    public int getAccountId() {
-        return accountId;
+    public int getAccount_id() {
+        return account_id;
     }
 
-    public void setAccountId(int accountId) {
-        this.accountId = accountId;
+    public void setAccount_id(int account_id) {
+        this.account_id = account_id;
     }
 }
