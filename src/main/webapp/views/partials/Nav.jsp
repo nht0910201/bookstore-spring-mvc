@@ -46,7 +46,7 @@
                                     <c:when test="${role != 2}"><li><a class="dropdown-item" href="${pageContext.request.contextPath}/Account/Profile/${authUser.id}">
                                         <i class="fa fa-user" aria-hidden="true"></i> Trang cá nhân
                                     </a></li>
-                                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/Admin">
+                                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/Admin/Manage">
                                             <i class="fa fa-cog" aria-hidden="true"></i>
                                             Quản lý
                                         </a></li>

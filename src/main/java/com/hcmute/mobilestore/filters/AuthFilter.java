@@ -9,7 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter(filterName = "AuthFilter", urlPatterns = "/Account/Profile/*")
+@WebFilter(filterName = "AuthFilter",
+        urlPatterns = {"/Account/Profile/*", "/Admin/*"})
 public class AuthFilter implements Filter {
     public void init(FilterConfig config) throws ServletException {
     }
@@ -24,10 +25,18 @@ public class AuthFilter implements Filter {
         HttpSession session = req.getSession();
         boolean auth = (boolean) session.getAttribute("auth");
         User authUser = (User) session.getAttribute("authUser");
+        int role = (int) session.getAttribute("role");
 
         if (auth == false) {
             res.sendRedirect("/Account/Login");
             return;
+        }
+
+        if (req.getRequestURI().equals("/Admin/Manage")) {
+            if (role == 2) {
+                res.sendRedirect("/Home");
+                return;
+            }
         }
 
         chain.doFilter(request, response);
