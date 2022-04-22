@@ -42,7 +42,7 @@
                     let quantity = parseInt($(this).val(), 10);
                     let price = parseFloat($(this).next().val());
                     $(this).next().next().next().text(quantity*price);
-                    
+
                 });
             });
 
