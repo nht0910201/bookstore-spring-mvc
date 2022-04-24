@@ -20,10 +20,29 @@
         </div>
         <div class="col-8">
             <div class="mx-auto">
-                <div class="d-flex justify-content-around align-items-center">
-                    <h5 class="mt-4 ml-2 font-weight-bold">Result for search: <span class="text-primary" id="resSearch"></span> </h5>
-                    <h5 class="mt-4 ml-1">(${products.size()} products)</h5>
+                <div class="d-flex justify-content-between align-items-center ">
+                    <div class="d-flex justify-content-around align-items-center">
+                        <h5 class="mt-4 ml-2 font-weight-bold">Result for search: <span class="text-primary" id="resSearch"></span> </h5>
+                        <h5 class="mt-4 ml-1">(${products.size()} products)</h5>
+                    </div>
+                    <div class="dropdown mt-1 " style="width: 91px">
+                        <a class="btn btn-outline-secondary font-weight-bold dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
+                            <i class="fa fa-filter" aria-hidden="true"></i>
+                            Sort
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right mt-0 " aria-labelledby="dropdownMenuLink">
+                            <button class="dropdown-item" onclick="SortIncPrice('${pageContext.request.contextPath}')">
+                                Price
+                                <i class="fa fa-arrow-up" aria-hidden="true"></i>
+                            </button>
+                            <button class="dropdown-item" onclick="SortDecPrice('${pageContext.request.contextPath}')">
+                                Price
+                                <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
                 </div>
+
                 <div class="container-fluid t1 d-flex flex-wrap">
                     <div class="row mt-2">
                         <c:forEach items="${products}" var="product">

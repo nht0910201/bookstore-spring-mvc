@@ -31,5 +31,19 @@ public class SearchController {
         request.setAttribute("products",product);
         return "viewSearch/Search";
     }
+    @GetMapping(value = "/Search/SortDecPrice")
+    public String sortDecPrice(ModelMap modelMap, HttpServletRequest request) {
+        String query = request.getParameter("search");
+        List<Product> product=productRepository.sortDecPrice(query);
+        request.setAttribute("products",product);
+        return "viewSearch/Search";
+    }
+    @GetMapping(value = "/Search/SortIncPrice")
+    public String sortIncPrice(ModelMap modelMap, HttpServletRequest request) {
+        String query = request.getParameter("search");
+        List<Product> product=productRepository.sortIncPrice(query);
+        request.setAttribute("products",product);
+        return "viewSearch/Search";
+    }
 
 }

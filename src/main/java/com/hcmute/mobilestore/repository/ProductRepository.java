@@ -11,4 +11,10 @@ import java.util.Optional;
 public interface ProductRepository extends CrudRepository<Product,Integer> {
     @Query("FROM Product p where p.name like %:query%")
     List<Product> searchProduct(@Param("query") String query);
+
+    @Query("FROM Product p where p.name like %:query% order by p.price desc")
+    List<Product> sortDecPrice(@Param("query") String query);
+
+    @Query("FROM Product p where p.name like %:query% order by p.price asc ")
+    List<Product> sortIncPrice(@Param("query") String query);
 }
