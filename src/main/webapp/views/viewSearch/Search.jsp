@@ -5,6 +5,26 @@
 <m1:MainLayout>
     <jsp:attribute name="js">
         <script>
+            function add (url){
+                $.getJSON(url, function (data) {
+                    if (data === false) {
+                        swal({
+                            title: "Không thể thêm!",
+                            text: "Sản phẩm đã có trong giỏ hàng !",
+                            icon: "error",
+                            button: "OK!",
+                            dangerMode: true,
+                            closeOnClickOutside: false,
+                        });
+                    } else swal({
+                        title: "Thêm thành công!",
+                        text: "Bạn đã thêm sản phẩm vào giỏ hàng",
+                        icon: "success",
+                        button: "OK!",
+                        closeOnClickOutside: false,
+                    });
+                });
+            }
             window.onload = function () {
                 var url_string = window.location.href; //window.location.href
                 var url = new URL(url_string);
