@@ -1,7 +1,9 @@
 package com.hcmute.mobilestore.controllers;
 
+import com.hcmute.mobilestore.models.Bill;
 import com.hcmute.mobilestore.models.Cart;
 import com.hcmute.mobilestore.models.Product;
+import com.hcmute.mobilestore.repository.BillRepository;
 import com.hcmute.mobilestore.repository.CartRepository;
 import com.hcmute.mobilestore.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +26,20 @@ public class CartController {
     private ProductRepository productRepository;
     @Autowired
     private CartRepository cartRepository;
+    @Autowired
+    private BillRepository billRepository;
     @GetMapping(value = "")
     public String showCart(ModelMap modelMap, HttpServletRequest request) {
         int Acc_id=Integer.parseInt(request.getParameter("acc_id"),10);
-        List<Cart> cart=cartRepository.findCartById(Acc_id);
-        modelMap.addAttribute("carts",cart);
-        return "viewCart/Cart";
+        Optional<Bill> bill = billRepository.isUserHasCart(Acc_id);
+        if(bill.isPresent()) {
+            List<Cart> cart = cartRepository.findCartById(Acc_id, bill.get().getId());
+            modelMap.addAttribute("carts", cart);
+            return "viewCart/Cart";
+        }
+        else{
+            return "viewHome/Index";
+        }
     }
     @GetMapping(value = "/DeleteCart")
     public void deleteCart(ModelMap modelMap, HttpServletRequest request, HttpServletResponse response) throws IOException {
