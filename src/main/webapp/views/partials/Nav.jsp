@@ -91,16 +91,20 @@
             <ul class="navbar-nav">
                 <c:forEach items="${suppliers}" var="supplier">
                     <li class="nav-item active mr-1">
-                        <div class="dropdown">
-                            <a class="btn btn-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
-                                    ${supplier.name}
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                            </div>
-                        </div>
+                        <a class="mr-2" href="${pageContext.request.contextPath}/Product/ListProduct?sup_id=${supplier.id}">
+                                ${supplier.name}
+                                    <i class="fa fa-caret-down" aria-hidden="true"></i>
+                        </a>
+<%--                        <div class="dropdown">--%>
+<%--                            <a class="btn btn-light dropdown-toggle" href="${pageContext.request.contextPath}/Product/ListProduct?sup_id=${supplier.id}" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">--%>
+<%--                                    ${supplier.name}--%>
+<%--                            </a>--%>
+<%--                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">--%>
+<%--                                <a class="dropdown-item" href="#">Action</a>--%>
+<%--                                <a class="dropdown-item" href="#">Another action</a>--%>
+<%--                                <a class="dropdown-item" href="#">Something else here</a>--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
                     </li>
                 </c:forEach>
             </ul>

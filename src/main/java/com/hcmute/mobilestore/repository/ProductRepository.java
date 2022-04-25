@@ -17,4 +17,7 @@ public interface ProductRepository extends CrudRepository<Product,Integer> {
 
     @Query("FROM Product p where p.name like %:query% order by p.price asc ")
     List<Product> sortIncPrice(@Param("query") String query);
+
+    @Query("FROM Product p where p.sup_id =:sup_id")
+    List<Product> findBySupID(@Param("sup_id") int sup_id);
 }

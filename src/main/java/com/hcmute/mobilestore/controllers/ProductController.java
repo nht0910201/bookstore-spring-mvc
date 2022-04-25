@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -57,5 +58,12 @@ public class ProductController {
             out.print(true);
             out.flush();
         }
+    }
+    @GetMapping(value = "/ListProduct")
+    public String listProduct(ModelMap modelMap, HttpServletRequest request) {
+        int Sup_id = Integer.parseInt(request.getParameter("sup_id"));
+        List<Product> products=productRepository.findBySupID(Sup_id);
+        request.setAttribute("products",products);
+        return "viewProduct/ListProduct";
     }
 }
