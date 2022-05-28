@@ -156,14 +156,6 @@ public class AdminController {
         Optional<Shopping_Cart> shopping_cart = shoppingCartRepository.findById(order_id);
         shopping_cart.get().setStatus("Accepted");
         shoppingCartRepository.save(shopping_cart.get());
-
-        try {
-
-
-            return "redirect:/Admin/Manage";
-        } catch (Exception e) {
-            System.out.println(e);
-            return "redirect:/Admin/Manage";
-        }
+        return "redirect:/Admin/Manage";
     }
 }

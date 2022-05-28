@@ -10,12 +10,19 @@
                         <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne${orderItem.id}" aria-expanded="true" aria-controls="collapseOne">
                                 ${orderItem.id}
                         </button>
-                        <form method="post" action="/Admin/Manage/Authorize" id="form_Order${orderItem.id}">
-                            <input type="hidden" value="${orderItem.id}" name="order_ id">
-                            <button class="btn btn-danger text-right d-inline-block" type="submit" >
-                                   Accept
-                            </button>
-                        </form>
+                        <c:choose>
+                            <c:when test = "${orderItem.status == 'complete'}">
+                                <form method="post" action="/Admin/Manage/Authorize" id="form_Order${orderItem.id}">
+                                    <input type="hidden" value="${orderItem.id}" name="order_ id">
+                                    <button class="btn btn-danger text-right d-inline-block" type="submit" >
+                                        Accept
+                                    </button>
+                                </form>
+                            </c:when>
+                            <c:when test = "${orderItem.status == 'Accepted'}">
+                              <span class="btn btn-primary" aria-readonly="true" >ACCEPTED </span>
+                            </c:when>
+                        </c:choose>
                     </h2>
                 </div>
                 <c:forEach items="${cart_item}" var="item">

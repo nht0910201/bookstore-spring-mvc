@@ -15,6 +15,6 @@ public interface ShoppingCartRepository extends CrudRepository<Shopping_Cart, In
     Optional<Shopping_Cart> isUserHasCart(@Param("acc_id") int acc_id);
     @Query("from Shopping_Cart s where s.account_id =:acc_id  and s.status = 'complete'")
     List<Shopping_Cart> showOrder(@Param("acc_id") int acc_id);
-    @Query("from Shopping_Cart s where s.status = 'complete'")
+    @Query("from Shopping_Cart s where s.status = 'complete' or s.status = 'Accepted'")
     List<Shopping_Cart> showAllOrder();
 }
