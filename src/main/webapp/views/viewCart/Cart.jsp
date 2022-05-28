@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="m1" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<jsp:useBean id="carts" scope="request" type="java.util.List<com.hcmute.mobilestore.models.Cart>"/>
+<jsp:useBean id="carts" scope="request" type="java.util.List<com.hcmute.mobilestore.models.Cart_Item>"/>
 <m1:MainLayout>
     <jsp:attribute name="js">
         <script>
@@ -54,30 +54,30 @@
         </div>
         <div class="col-8 d-flex flex-wrap">
             <ul class="list-unstyled">
-            <c:forEach items="${carts}" var="cart">
+            <c:forEach items="${carts}" var="cartItem">
 <%--                <div class="card mt-1 mr-1" style="width: 18rem;">--%>
-<%--                    <a href="${pageContext.request.contextPath}/Product/Detail?pro_id=${cart.pro_id}">--%>
+<%--                    <a href="${pageContext.request.contextPath}/Product/Detail?pro_id=${cartItem.pro_id}">--%>
 <%--                        <img src="https://cdn.tgdd.vn/Products/Images/42/262402/Samsung-Galaxy-A13-cam-thumb-600x600.jpg" class="card-img-top" alt="...">--%>
 <%--                    </a>--%>
 <%--                    <div class="card-body">--%>
-<%--                        <a href="${pageContext.request.contextPath}/Product/Detail?pro_id=${cart.pro_id}">--%>
-<%--                                ${cart.pro_name}--%>
+<%--                        <a href="${pageContext.request.contextPath}/Product/Detail?pro_id=${cartItem.pro_id}">--%>
+<%--                                ${cartItem.pro_name}--%>
 <%--                        </a>--%>
-<%--&lt;%&ndash;                        <h5 class="card-title">${cart.pro_name}</h5>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        <p class="card-text">${cart.}</p>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                        <h5 class="card-title">${cartItem.pro_name}</h5>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                        <p class="card-text">${cartItem.}</p>&ndash;%&gt;--%>
 <%--                    </div>--%>
 <%--                    <ul class="list-group list-group-flush">--%>
 <%--&lt;%&ndash;                        <li class="list-group-item">Tồn kho: ${quantities.quantity}</li>&ndash;%&gt;--%>
-<%--                        <li class="list-group-item">Giá bán: ${cart.price}(1 sản phẩm)</li>--%>
+<%--                        <li class="list-group-item">Giá bán: ${cartItem.price}(1 sản phẩm)</li>--%>
 <%--                        <li class="list-group-item">--%>
 <%--                            <label for="quantity">Số lượng mua:</label>--%>
-<%--                            <input style="width: 100%" type="number" value="${cart.quantity}" id="quantity" name="quantity" min="1" max="5">--%>
+<%--                            <input style="width: 100%" type="number" value="${cartItem.quantity}" id="quantity" name="quantity" min="1" max="5">--%>
 <%--                        </li>--%>
 <%--                    </ul>--%>
 <%--                    <div class="card-body mx-auto">--%>
-<%--                        <button class="btn btn-outline-danger" onclick="remove('${pageContext.request.contextPath}/Cart/DeleteCart?pro_id=${cart.pro_id}&acc_id=${cart.account_id}')" role="button">--%>
+<%--                        <button class="btn btn-outline-danger" onclick="remove('${pageContext.request.contextPath}/Cart/DeleteCart?pro_id=${cartItem.pro_id}&acc_id=${cartItem.account_id}')" role="button">--%>
 <%--                            <i class="fa fa-trash" aria-hidden="true"></i>--%>
-<%--&lt;%&ndash;                            pro_name=${cart.pro_name}&price=${cart.price}&quantity=${cart.quantity}&&ndash;%&gt;--%>
+<%--&lt;%&ndash;                            pro_name=${cartItem.pro_name}&price=${cartItem.price}&quantity=${cartItem.quantity}&&ndash;%&gt;--%>
 <%--                            Delete--%>
 <%--                        </button>--%>
 <%--                    </div>--%>
@@ -88,21 +88,21 @@
                         <img src="https://cdn.tgdd.vn/Products/Images/42/262402/Samsung-Galaxy-A13-cam-thumb-600x600.jpg" class="card-img-top w-25" alt="...">
                         <div class="media-body">
                             <h5 class="mt-0 mb-1">
-                                <a href="${pageContext.request.contextPath}/Product/Detail?pro_id=${cart.pro_id}">
-                                                ${cart.pro_name}
+                                <a href="${pageContext.request.contextPath}/Product/Detail?pro_id=${cartItem.pro_id}">
+                                                ${cartItem.pro_name}
                                 </a>
                             </h5>
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Giá bán: ${cart.price}(1 sản phẩm)</li>
+                                <li class="list-group-item">Giá bán: ${cartItem.price}(1 sản phẩm)</li>
                                 <li class="list-group-item totalPrice">
                                     <label>Số lượng mua:</label>
-                                    <input class="quantity" style="width: 25%" type="number" value="${cart.quantity}"  name="quantity" min="1" max="5">
-                                    <input type="hidden" value="${cart.price}"> <br>
+                                    <input class="quantity" style="width: 25%" type="number" value="${cartItem.quantity}"  name="quantity" min="1" max="5">
+                                    <input type="hidden" value="${cartItem.price}"> <br>
                                     Thành tiền: <span></span>
-                                    <input type="hidden" value="${cart.id}">
+                                    <input type="hidden" value="${cartItem.id}">
                                 </li>
                             </ul>
-                            <button class="btn btn-outline-danger float-right mr-3" onclick="remove('${pageContext.request.contextPath}/Cart/DeleteCart?pro_id=${cart.pro_id}&acc_id=${cart.account_id}')" role="button">
+                            <button class="btn btn-outline-danger float-right mr-3" onclick="remove('${pageContext.request.contextPath}/Cart/DeleteCart?pro_id=${cartItem.pro_id}&acc_id=${cartItem.account_id}')" role="button">
                                 <i class="fa fa-trash" aria-hidden="true"></i>
                                 Delete
                             </button>

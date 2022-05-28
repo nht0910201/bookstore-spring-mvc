@@ -1,9 +1,7 @@
 package com.hcmute.mobilestore.controllers;
 
 import com.hcmute.mobilestore.models.Account;
-import com.hcmute.mobilestore.models.User;
 import com.hcmute.mobilestore.repository.AccountRepository;
-import com.hcmute.mobilestore.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -21,8 +19,6 @@ import java.util.Optional;
 public class AccountController {
     @Autowired
     AccountRepository accountRepository;
-    @Autowired
-    UserRepository userRepository;
 
 //    Phần đăng nhập
     @GetMapping(value = "/Login")
@@ -38,12 +34,12 @@ public class AccountController {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-        Account account = accountRepository.findByUsername(email);
+        Account account = accountRepository.findByEmail(email);
         if (account != null) {
             if (account.getPassword().equals(password)) {
                 HttpSession session = request.getSession();
                 session.setAttribute("auth", true);
-                session.setAttribute("authUser", userRepository.findById(account.getId()).get());
+                session.setAttribute("authUser", accountRepository.findById(account.getId()).get());
                 session.setAttribute("role", account.getRole());
 
                 return "redirect:/Home";
@@ -74,10 +70,8 @@ public class AccountController {
         String phone_number = request.getParameter("phone");
         int role = 2;
         try {
-            User newUser = new User(name, email, address,  phone_number);
-            userRepository.save(newUser);
-            Account newAccount = new Account(userRepository.findByEmail(email).getId(), email, rawpwd, role);
-            accountRepository.save(newAccount);
+            Account newUser = new Account(name, email, rawpwd,address,  phone_number,role);
+            accountRepository.save(newUser);
             modelMap.addAttribute("hasNotify", true);
             modelMap.addAttribute("Message", "Đăng ký thành công!!!");
             return "viewAccount/Register";
@@ -92,7 +86,7 @@ public class AccountController {
     @GetMapping(value = "/IsAvailable")
     public void emailChecking(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String username = request.getParameter("email");
-        Account account = accountRepository.findByUsername(username);
+        Account account = accountRepository.findByEmail(username);
         boolean isAvailable = (account == null);
 
         PrintWriter out = response.getWriter();
@@ -108,7 +102,7 @@ public class AccountController {
     public String logout(ModelMap modelMap, HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.setAttribute("auth", false);
-        session.setAttribute("authUser", new User());
+        session.setAttribute("authUser", new Account());
         return "redirect:/Home";
     }
 
@@ -117,7 +111,7 @@ public class AccountController {
     public String getProfile(ModelMap modelMap,
                             @PathVariable int id )
     {
-        Optional<User> user = userRepository.findById(id);
+        Optional<Account> user = accountRepository.findById(id);
         if (user.isPresent()) {
             modelMap.addAttribute("users", user.get());
             return "viewAccount/Profile";
@@ -132,12 +126,12 @@ public class AccountController {
         String name = request.getParameter("name");
         String address = request.getParameter("address");
         String phone_number = request.getParameter("phone_number");
-        User updateUser = userRepository.findById(id).get();
+        Account updateUser = accountRepository.findById(id).get();
         updateUser.setAddress(address);
         updateUser.setName(name);
         updateUser.setPhone_number(phone_number);
         try {
-            userRepository.save(updateUser);
+            accountRepository.save(updateUser);
             HttpSession session = request.getSession();
             session.setAttribute("authUser", updateUser);
             return "redirect:/Account/Profile/"+id;

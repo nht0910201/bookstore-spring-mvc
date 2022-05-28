@@ -5,20 +5,20 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "bill")
-public class Bill {
+@Table(name = "shopping_cart")
+public class Shopping_Cart {
     @Id
     private int id;
     private String status;
     private int account_id;
     private double total_price;
 
-    public Bill(String status, int account_id, double total_price) {
+    public Shopping_Cart(String status, int account_id, double total_price) {
         this.status = status;
         this.account_id = account_id;
         this.total_price = total_price;
     }
-    public Bill() {
+    public Shopping_Cart() {
     }
 
     public int getId() {

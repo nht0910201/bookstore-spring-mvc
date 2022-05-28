@@ -5,8 +5,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "cart")
-public class Cart {
+@Table(name = "cart_item")
+public class Cart_Item {
     @Id
     private int id;
     private int pro_id;
@@ -22,7 +22,7 @@ public class Cart {
         this.price = price;
     }
 
-    public Cart(int pro_id, String pro_name, double price, int quantity, int account_id, int order_id) {
+    public Cart_Item(int pro_id, String pro_name, double price, int quantity, int account_id, int order_id) {
         this.pro_id = pro_id;
         this.pro_name = pro_name;
         this.price = price;
@@ -31,7 +31,7 @@ public class Cart {
         this.order_id = order_id;
     }
 
-    public Cart() {
+    public Cart_Item() {
     }
     public int getId() {
         return id;

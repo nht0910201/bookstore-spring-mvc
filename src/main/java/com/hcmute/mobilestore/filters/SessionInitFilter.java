@@ -1,6 +1,6 @@
 package com.hcmute.mobilestore.filters;
 
-import com.hcmute.mobilestore.models.User;
+import com.hcmute.mobilestore.models.Account;
 
 import javax.servlet.*;
 import javax.servlet.annotation.*;
@@ -22,7 +22,7 @@ public class SessionInitFilter implements Filter {
         HttpSession session = req.getSession();
         if (session.getAttribute("auth") == null) {
             session.setAttribute("auth", false);
-            session.setAttribute("authUser", new User());
+            session.setAttribute("authUser", new Account());
             session.setAttribute("role", 2);
         }
         chain.doFilter(request, response);

@@ -11,7 +11,7 @@
  Target Server Version : 100424
  File Encoding         : 65001
 
- Date: 25/04/2022 22:17:12
+ Date: 28/05/2022 13:40:07
 */
 
 SET NAMES utf8mb4;
@@ -23,50 +23,30 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `account`;
 CREATE TABLE `account`  (
   `id` int NOT NULL,
-  `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `password` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `address` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+  `phone_number` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `role` int NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `account_username_uindex`(`username`) USING BTREE,
+  UNIQUE INDEX `account_username_uindex`(`email`) USING BTREE,
   INDEX `id`(`id`) USING BTREE,
-  INDEX `account_user_email_id_fk`(`username`, `id`) USING BTREE,
-  CONSTRAINT `account_user_email_id_fk` FOREIGN KEY (`username`, `id`) REFERENCES `user` (`email`, `id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  INDEX `account_user_email_id_fk`(`email`, `id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci;
 
 -- ----------------------------
 -- Records of account
 -- ----------------------------
 BEGIN;
-INSERT INTO `account` VALUES (1, 'huutri0910@gmail.com', '091020t.', 0);
+INSERT INTO `account` VALUES (1, '', 'huutri0910@gmail.com', '091020t.', NULL, NULL, 0);
 COMMIT;
 
 -- ----------------------------
--- Table structure for bill
+-- Table structure for cart_item
 -- ----------------------------
-DROP TABLE IF EXISTS `bill`;
-CREATE TABLE `bill`  (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `status` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `account_id` int NOT NULL,
-  `total_price` decimal(15, 0) NOT NULL,
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `order2___fk`(`total_price`) USING BTREE,
-  INDEX `order1___fk`(`account_id`) USING BTREE,
-  CONSTRAINT `order1___fk` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci;
-
--- ----------------------------
--- Records of bill
--- ----------------------------
-BEGIN;
-INSERT INTO `bill` VALUES (1, 'incomplete', 1, 0);
-COMMIT;
-
--- ----------------------------
--- Table structure for cart
--- ----------------------------
-DROP TABLE IF EXISTS `cart`;
-CREATE TABLE `cart`  (
+DROP TABLE IF EXISTS `cart_item`;
+CREATE TABLE `cart_item`  (
   `id` int NOT NULL AUTO_INCREMENT,
   `pro_id` int NULL DEFAULT NULL,
   `pro_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -80,10 +60,10 @@ CREATE TABLE `cart`  (
   INDEX `id`(`id`) USING BTREE,
   CONSTRAINT `cart1___fk` FOREIGN KEY (`pro_id`) REFERENCES `product` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `cart3___fk` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8 COLLATE = utf8_general_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8 COLLATE = utf8_general_ci;
 
 -- ----------------------------
--- Records of cart
+-- Records of cart_item
 -- ----------------------------
 BEGIN;
 COMMIT;
@@ -113,6 +93,28 @@ INSERT INTO `product` VALUES (1, 'Samsung Samsung Galaxy A13 4GB', 5, 1234568, 5
 COMMIT;
 
 -- ----------------------------
+-- Table structure for shopping_cart
+-- ----------------------------
+DROP TABLE IF EXISTS `shopping_cart`;
+CREATE TABLE `shopping_cart`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `status` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `account_id` int NOT NULL,
+  `total_price` decimal(15, 0) NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `order2___fk`(`total_price`) USING BTREE,
+  INDEX `order1___fk`(`account_id`) USING BTREE,
+  CONSTRAINT `order1___fk` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci;
+
+-- ----------------------------
+-- Records of shopping_cart
+-- ----------------------------
+BEGIN;
+INSERT INTO `shopping_cart` VALUES (1, 'incomplete', 1, 0);
+COMMIT;
+
+-- ----------------------------
 -- Table structure for supplier
 -- ----------------------------
 DROP TABLE IF EXISTS `supplier`;
@@ -127,28 +129,6 @@ CREATE TABLE `supplier`  (
 -- ----------------------------
 BEGIN;
 INSERT INTO `supplier` VALUES (1, 'Iphone'), (2, 'Samsung');
-COMMIT;
-
--- ----------------------------
--- Table structure for user
--- ----------------------------
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user`  (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `phone_number` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `user_email_uindex`(`email`) USING BTREE,
-  INDEX `email`(`email`, `id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci;
-
--- ----------------------------
--- Records of user
--- ----------------------------
-BEGIN;
-INSERT INTO `user` VALUES (1, 'Nguyễn Hữu Trí', 'huutri0910@gmail.com', 'abc', '0912592574');
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

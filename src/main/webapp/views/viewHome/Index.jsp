@@ -58,7 +58,7 @@
                                         Detail
                                     </a>
                                     <button onclick="add('${pageContext.request.contextPath}/Product/AddToCart?pro_id=${product.id}&pro_name=${product.name}&price=${product.price}&quantity=1&acc_id=${authUser.id}')" class="btn btn-outline-danger" role="button">
-                                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                        <i class="fa fa-shopping-cartItem" aria-hidden="true"></i>
                                         Add to Cart
                                     </button>
                                 </div>

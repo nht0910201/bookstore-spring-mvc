@@ -1,6 +1,6 @@
 package com.hcmute.mobilestore.filters;
 
-import com.hcmute.mobilestore.models.User;
+import com.hcmute.mobilestore.models.Account;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -24,7 +24,7 @@ public class AuthFilter implements Filter {
         HttpServletResponse res = (HttpServletResponse) response;
         HttpSession session = req.getSession();
         boolean auth = (boolean) session.getAttribute("auth");
-        User authUser = (User) session.getAttribute("authUser");
+        Account authUser = (Account) session.getAttribute("authUser");
         int role = (int) session.getAttribute("role");
 
         if (auth == false) {

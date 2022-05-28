@@ -11,18 +11,21 @@ import javax.persistence.Table;
 public class Account {
     @Id
     private int id;
-    private String username, password;
+    private String name;
+    private String email, password;
+    private String address, phone_number;
     private int role; // 0 for admin, 1 for staff, 2 for customer
 
-    public Account(int id, String username, String password, int role) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.role = role;
+    public Account() {
     }
 
-    public Account() {
-
+    public Account(String name, String email, String password, String address, String phone_number, int role) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.address = address;
+        this.phone_number = phone_number;
+        this.role = role;
     }
 
     public int getId() {
@@ -33,12 +36,20 @@ public class Account {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getName() {
+        return name;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -47,6 +58,22 @@ public class Account {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhone_number() {
+        return phone_number;
+    }
+
+    public void setPhone_number(String phone_number) {
+        this.phone_number = phone_number;
     }
 
     public int getRole() {

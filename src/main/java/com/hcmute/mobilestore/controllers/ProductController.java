@@ -1,7 +1,7 @@
 package com.hcmute.mobilestore.controllers;
 
-import com.hcmute.mobilestore.models.Bill;
-import com.hcmute.mobilestore.models.Cart;
+import com.hcmute.mobilestore.models.Shopping_Cart;
+import com.hcmute.mobilestore.models.Cart_Item;
 import com.hcmute.mobilestore.models.Product;
 import com.hcmute.mobilestore.repository.CartRepository;
 import com.hcmute.mobilestore.repository.BillRepository;
@@ -42,12 +42,12 @@ public class ProductController {
         Double Price = Double.parseDouble(request.getParameter("price"));
         int quantity = Integer.parseInt(request.getParameter("quantity"),10);
         int Acc_id=Integer.parseInt(request.getParameter("acc_id"),10);
-        Optional<Bill> check = billRepository.isUserHasCart(Acc_id);
+        Optional<Shopping_Cart> check = billRepository.isUserHasCart(Acc_id);
         if (check.isEmpty())
         {
-            Bill bill = new Bill("incomplete",Acc_id,0);
-            billRepository.save(bill);
-            Optional<Cart> cart = cartRepository.findProductInCartById(Pro_id,Acc_id);
+            Shopping_Cart shoppingCart = new Shopping_Cart("incomplete",Acc_id,0);
+            billRepository.save(shoppingCart);
+            Optional<Cart_Item> cart = cartRepository.findProductInCartById(Pro_id,Acc_id);
             if(cart.isPresent()){
                 PrintWriter out = response.getWriter();
                 response.setContentType("application/json");
@@ -56,8 +56,8 @@ public class ProductController {
                 out.flush();
             }else {
                 check = billRepository.isUserHasCart(Acc_id);
-                Cart newCart = new Cart(Pro_id,Pro_name,Price,quantity,Acc_id, check.get().getId());
-                cartRepository.save(newCart);
+                Cart_Item newCartItem = new Cart_Item(Pro_id,Pro_name,Price,quantity,Acc_id, check.get().getId());
+                cartRepository.save(newCartItem);
                 PrintWriter out = response.getWriter();
                 response.setContentType("application/json");
                 response.setCharacterEncoding("utf-8");
@@ -67,7 +67,7 @@ public class ProductController {
         }
         else
         {
-            Optional<Cart> cart = cartRepository.findProductInCartById(Pro_id,Acc_id);
+            Optional<Cart_Item> cart = cartRepository.findProductInCartById(Pro_id,Acc_id);
             if(cart.isPresent()){
                 PrintWriter out = response.getWriter();
                 response.setContentType("application/json");
@@ -75,8 +75,8 @@ public class ProductController {
                 out.print(false);
                 out.flush();
             }else {
-                Cart newCart = new Cart(Pro_id,Pro_name,Price,quantity,Acc_id,check.get().getId() );
-                cartRepository.save(newCart);
+                Cart_Item newCartItem = new Cart_Item(Pro_id,Pro_name,Price,quantity,Acc_id,check.get().getId() );
+                cartRepository.save(newCartItem);
                 PrintWriter out = response.getWriter();
                 response.setContentType("application/json");
                 response.setCharacterEncoding("utf-8");

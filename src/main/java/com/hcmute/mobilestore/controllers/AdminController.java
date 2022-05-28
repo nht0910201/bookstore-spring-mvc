@@ -3,11 +3,9 @@ package com.hcmute.mobilestore.controllers;
 import com.hcmute.mobilestore.models.Account;
 import com.hcmute.mobilestore.models.Product;
 import com.hcmute.mobilestore.models.Supplier;
-import com.hcmute.mobilestore.models.User;
 import com.hcmute.mobilestore.repository.AccountRepository;
 import com.hcmute.mobilestore.repository.ProductRepository;
 import com.hcmute.mobilestore.repository.SupplierRepository;
-import com.hcmute.mobilestore.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,19 +15,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Optional;
 
 @Controller
 @RequestMapping(path = "/Admin")
 public class AdminController {
     @Autowired
     AccountRepository accountRepository;
-    @Autowired
-    UserRepository userRepository;
     @Autowired
     ProductRepository productRepository;
     @Autowired
@@ -40,7 +31,7 @@ public class AdminController {
     public String productManage(ModelMap modelMap) {
         Iterable<Product> products = productRepository.findAll();
         modelMap.addAttribute("products", products);
-        Iterable<User> users = userRepository.findAll();
+        Iterable<Account> users = accountRepository.findAll();
         modelMap.addAttribute("users", users);
         Iterable<Supplier> suppliers = supplierRepository.findAll();
         modelMap.addAttribute("suppliers", suppliers);
@@ -112,12 +103,12 @@ public class AdminController {
         String userName = request.getParameter("name");
         String userAddress = request.getParameter("address");
         String userPhone_number = request.getParameter("phone_number");
-        User updateUser = userRepository.findById(id).get();
+        Account updateUser = accountRepository.findById(id).get();
         updateUser.setAddress(userAddress);
         updateUser.setName(userName);
         updateUser.setPhone_number(userPhone_number);
         try {
-            userRepository.save(updateUser);
+            accountRepository.save(updateUser);
             return "redirect:/Admin/Manage#list-users";
         } catch (Exception e) {
             return "redirect:/Admin/Manage#list-users";
@@ -130,7 +121,6 @@ public class AdminController {
                                 @PathVariable int id) {
         try {
             accountRepository.deleteById(id);
-            userRepository.deleteById(id);
         } catch (Exception e) {
             System.out.println(e);
         } finally {
@@ -147,10 +137,8 @@ public class AdminController {
         String phone_number = request.getParameter("phone_number");
         int role = 2;
         try {
-            User newUser = new User(name, email, address,  phone_number);
-            userRepository.save(newUser);
-            Account newAccount = new Account(userRepository.findByEmail(email).getId(), email, pass, role);
-            accountRepository.save(newAccount);
+            Account newUser = new Account(name, email, pass,address,  phone_number,role);
+            accountRepository.save(newUser);
             return "redirect:/Admin/Manage";
         } catch (Exception e) {
             System.out.println(e);
