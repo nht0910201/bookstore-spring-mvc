@@ -1,7 +1,11 @@
 package com.hcmute.mobilestore.controllers;
 
 import com.hcmute.mobilestore.models.Account;
+import com.hcmute.mobilestore.models.Cart_Item;
+import com.hcmute.mobilestore.models.Shopping_Cart;
 import com.hcmute.mobilestore.repository.AccountRepository;
+import com.hcmute.mobilestore.repository.CartItemRepository;
+import com.hcmute.mobilestore.repository.ShoppingCartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -12,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -19,7 +24,10 @@ import java.util.Optional;
 public class AccountController {
     @Autowired
     AccountRepository accountRepository;
-
+    @Autowired
+    private ShoppingCartRepository shoppingCartRepository;
+    @Autowired
+    private CartItemRepository cartItemRepository;
 //    Phần đăng nhập
     @GetMapping(value = "/Login")
     public String login(HttpServletRequest request) {
@@ -114,6 +122,11 @@ public class AccountController {
         Optional<Account> user = accountRepository.findById(id);
         if (user.isPresent()) {
             modelMap.addAttribute("users", user.get());
+            List <Shopping_Cart> shopping_cart = shoppingCartRepository.showOrder(id);
+            modelMap.addAttribute("list_Order" ,shopping_cart);
+            Iterable<Cart_Item> cartItem = cartItemRepository.findAll();
+            modelMap.addAttribute("cart_item" ,cartItem);
+
             return "viewAccount/Profile";
         } else return "redirect:/Home";
     }
@@ -139,4 +152,5 @@ public class AccountController {
             return "redirect:/Account/Profile/"+id;
         }
     }
+
 }

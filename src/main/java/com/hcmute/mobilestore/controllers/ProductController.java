@@ -3,8 +3,8 @@ package com.hcmute.mobilestore.controllers;
 import com.hcmute.mobilestore.models.Shopping_Cart;
 import com.hcmute.mobilestore.models.Cart_Item;
 import com.hcmute.mobilestore.models.Product;
-import com.hcmute.mobilestore.repository.CartRepository;
-import com.hcmute.mobilestore.repository.BillRepository;
+import com.hcmute.mobilestore.repository.CartItemRepository;
+import com.hcmute.mobilestore.repository.ShoppingCartRepository;
 import com.hcmute.mobilestore.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,9 +25,9 @@ public class ProductController {
     @Autowired
     private ProductRepository productRepository;
     @Autowired
-    private CartRepository cartRepository;
+    private CartItemRepository cartItemRepository;
     @Autowired
-    private BillRepository billRepository;
+    private ShoppingCartRepository shoppingCartRepository;
     @GetMapping(value = "/Detail")
     public String detailProduct(ModelMap modelMap, HttpServletRequest request) {
         int Pro_id = Integer.parseInt(request.getParameter("pro_id"));
@@ -42,12 +42,12 @@ public class ProductController {
         Double Price = Double.parseDouble(request.getParameter("price"));
         int quantity = Integer.parseInt(request.getParameter("quantity"),10);
         int Acc_id=Integer.parseInt(request.getParameter("acc_id"),10);
-        Optional<Shopping_Cart> check = billRepository.isUserHasCart(Acc_id);
+        Optional<Shopping_Cart> check = shoppingCartRepository.isUserHasCart(Acc_id);
         if (check.isEmpty())
         {
             Shopping_Cart shoppingCart = new Shopping_Cart("incomplete",Acc_id,0);
-            billRepository.save(shoppingCart);
-            Optional<Cart_Item> cart = cartRepository.findProductInCartById(Pro_id,Acc_id);
+            shoppingCartRepository.save(shoppingCart);
+            Optional<Cart_Item> cart = cartItemRepository.findProductInCartById(Pro_id,Acc_id);
             if(cart.isPresent()){
                 PrintWriter out = response.getWriter();
                 response.setContentType("application/json");
@@ -55,9 +55,9 @@ public class ProductController {
                 out.print(false);
                 out.flush();
             }else {
-                check = billRepository.isUserHasCart(Acc_id);
+                check = shoppingCartRepository.isUserHasCart(Acc_id);
                 Cart_Item newCartItem = new Cart_Item(Pro_id,Pro_name,Price,quantity,Acc_id, check.get().getId());
-                cartRepository.save(newCartItem);
+                cartItemRepository.save(newCartItem);
                 PrintWriter out = response.getWriter();
                 response.setContentType("application/json");
                 response.setCharacterEncoding("utf-8");
@@ -67,7 +67,7 @@ public class ProductController {
         }
         else
         {
-            Optional<Cart_Item> cart = cartRepository.findProductInCartById(Pro_id,Acc_id);
+            Optional<Cart_Item> cart = cartItemRepository.findProductInCartById(Pro_id,Acc_id);
             if(cart.isPresent()){
                 PrintWriter out = response.getWriter();
                 response.setContentType("application/json");
@@ -76,7 +76,7 @@ public class ProductController {
                 out.flush();
             }else {
                 Cart_Item newCartItem = new Cart_Item(Pro_id,Pro_name,Price,quantity,Acc_id,check.get().getId() );
-                cartRepository.save(newCartItem);
+                cartItemRepository.save(newCartItem);
                 PrintWriter out = response.getWriter();
                 response.setContentType("application/json");
                 response.setCharacterEncoding("utf-8");

@@ -1,11 +1,7 @@
 package com.hcmute.mobilestore.controllers;
 
-import com.hcmute.mobilestore.models.Account;
-import com.hcmute.mobilestore.models.Product;
-import com.hcmute.mobilestore.models.Supplier;
-import com.hcmute.mobilestore.repository.AccountRepository;
-import com.hcmute.mobilestore.repository.ProductRepository;
-import com.hcmute.mobilestore.repository.SupplierRepository;
+import com.hcmute.mobilestore.models.*;
+import com.hcmute.mobilestore.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -15,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping(path = "/Admin")
@@ -25,7 +23,10 @@ public class AdminController {
     ProductRepository productRepository;
     @Autowired
     SupplierRepository supplierRepository;
-
+    @Autowired
+    private ShoppingCartRepository shoppingCartRepository;
+    @Autowired
+    private CartItemRepository cartItemRepository;
 //    Quản lý sản phẩm
     @GetMapping(value = "/Manage")
     public String productManage(ModelMap modelMap) {
@@ -35,6 +36,10 @@ public class AdminController {
         modelMap.addAttribute("users", users);
         Iterable<Supplier> suppliers = supplierRepository.findAll();
         modelMap.addAttribute("suppliers", suppliers);
+        List<Shopping_Cart> shopping_cart = shoppingCartRepository.showAllOrder();
+        modelMap.addAttribute("list_Order" ,shopping_cart);
+        Iterable<Cart_Item> cartItem = cartItemRepository.findAll();
+        modelMap.addAttribute("cart_item" ,cartItem);
         return "viewAdmin/Manage";
     }
 
@@ -139,6 +144,22 @@ public class AdminController {
         try {
             Account newUser = new Account(name, email, pass,address,  phone_number,role);
             accountRepository.save(newUser);
+            return "redirect:/Admin/Manage";
+        } catch (Exception e) {
+            System.out.println(e);
+            return "redirect:/Admin/Manage";
+        }
+    }
+    @PostMapping(value = "/Manage/Authorize")
+    public String authorizeOrder(ModelMap modelMap, HttpServletRequest request) {
+        int order_id = Integer.parseInt(request.getParameter("order_ id"));
+        Optional<Shopping_Cart> shopping_cart = shoppingCartRepository.findById(order_id);
+        shopping_cart.get().setStatus("Accepted");
+        shoppingCartRepository.save(shopping_cart.get());
+
+        try {
+
+
             return "redirect:/Admin/Manage";
         } catch (Exception e) {
             System.out.println(e);

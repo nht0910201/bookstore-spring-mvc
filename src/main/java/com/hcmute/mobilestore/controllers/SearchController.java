@@ -1,7 +1,7 @@
 package com.hcmute.mobilestore.controllers;
 
 import com.hcmute.mobilestore.models.Product;
-import com.hcmute.mobilestore.repository.CartRepository;
+import com.hcmute.mobilestore.repository.CartItemRepository;
 import com.hcmute.mobilestore.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +18,7 @@ public class SearchController {
     @Autowired
     private ProductRepository productRepository;
     @Autowired
-    private CartRepository cartRepository;
+    private CartItemRepository cartItemRepository;
     @GetMapping(value = "/Search")
     public String searchProduct(ModelMap modelMap, HttpServletRequest request) {
         String query = request.getParameter("search");
