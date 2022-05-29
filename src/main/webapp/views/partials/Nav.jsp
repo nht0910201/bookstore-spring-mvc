@@ -58,9 +58,9 @@
                                     </c:otherwise>
                                 </c:choose>
 
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/Account/YourProduct?uid=${authUser.id}">
-                                    <i class="fa fa-product-hunt" aria-hidden="true"></i> Đơn hàng của bạn
-                                </a></li>
+<%--                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/Account/YourProduct?uid=${authUser.id}">--%>
+<%--                                    <i class="fa fa-product-hunt" aria-hidden="true"></i> Đơn hàng của bạn--%>
+<%--                                </a></li>--%>
                                 <li><a class="dropdown-item" href="javascript: $('#frmLogout').submit()">
                                     <i class="fa fa-sign-out" aria-hidden="true"></i> Đăng xuất
                                 </a></li>

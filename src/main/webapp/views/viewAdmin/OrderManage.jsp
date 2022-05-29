@@ -7,12 +7,12 @@
             <div class="card">
                 <div class="card-header" id="headingOne">
                     <h2 class="mb-0">
-                        <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne${orderItem.id}" aria-expanded="true" aria-controls="collapseOne">
+                        <button class="btn btn-link  text-left" type="button" data-toggle="collapse" data-target="#collapseOne${orderItem.id}" aria-expanded="true" aria-controls="collapseOne${orderItem.id}">
                                 ${orderItem.id}
                         </button>
                         <c:choose>
                             <c:when test = "${orderItem.status == 'complete'}">
-                                <form method="post" action="/Admin/Manage/Authorize" id="form_Order${orderItem.id}">
+                                <form method="post" action="/Admin/Manage/Authorize" id="form_Order${orderItem.id}" class="d-inline">
                                     <input type="hidden" value="${orderItem.id}" name="order_ id">
                                     <button class="btn btn-danger text-right d-inline-block" type="submit" >
                                         Accept

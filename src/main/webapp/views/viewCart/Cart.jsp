@@ -141,7 +141,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="address" class="col-form-label">Địa Chỉ</label>
-                                <textarea class="form-control" id="address" value="${authUser.address}" readonly></textarea>
+                                <input class="form-control" id="address" value="${authUser.address}" readonly>
                             </div>
                             <div class="form-group">
                                 <label for="phone" class="col-form-label">Số điện thoại</label>

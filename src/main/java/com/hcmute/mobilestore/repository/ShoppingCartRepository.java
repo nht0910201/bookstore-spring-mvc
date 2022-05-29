@@ -13,7 +13,7 @@ import java.util.Optional;
 public interface ShoppingCartRepository extends CrudRepository<Shopping_Cart, Integer> {
     @Query("from Shopping_Cart bill where bill.account_id=:acc_id and bill.status='incomplete'")
     Optional<Shopping_Cart> isUserHasCart(@Param("acc_id") int acc_id);
-    @Query("from Shopping_Cart s where s.account_id =:acc_id  and s.status = 'complete'")
+    @Query("from Shopping_Cart s where s.account_id =:acc_id  and s.status = 'complete'  or s.status = 'Accepted'")
     List<Shopping_Cart> showOrder(@Param("acc_id") int acc_id);
     @Query("from Shopping_Cart s where s.status = 'complete' or s.status = 'Accepted'")
     List<Shopping_Cart> showAllOrder();
