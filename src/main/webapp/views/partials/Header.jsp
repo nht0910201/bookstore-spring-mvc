@@ -1,35 +1,60 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Navbar</a>
+<nav id="top" class="navbar navbar-expand-lg navbar-light bg-dark">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse " id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
-                    Dropdown
+            <li class="nav-item dropdown ">
+                <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                    <i class="fa fa-bars fa-2x" aria-hidden="true"></i>
                 </a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item " href="#">Action</a>
                     <a class="dropdown-item" href="#">Another action</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
                 </div>
             </li>
-            <li class="nav-item">
-                <a class="nav-link disabled">Disabled</a>
-            </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+        <div clas="w-25">
+            <a href="">
+                <img class="w-25" src="https://www.tiendauroi.com/wp-content/uploads/2020/02/bhd-star-cinema.png" alt="">
+            </a>
+        </div>
+        <div class="fles justify-content-around">
+            <a class="btn btn-primary" href="#" role="button">
+                <i class="fa fa-facebook-official" aria-hidden="true"></i>
+            </a>
+            <a  class="btn btn-primary" href="#" role="button">
+                <i class="fa fa-instagram" aria-hidden="true"></i>
+            </a>
+            <a  class="btn btn-primary" href="#" role="button">
+                <i class="fa fa-youtube" aria-hidden="true"></i>
+            </a>
+            <a  class="btn btn-primary" href="#" role="button">
+                <i class="fa fa-telegram" aria-hidden="true"></i>
+            </a>
+            <a class="btn btn-primary" href="#" role="button">
+                <i class="fa fa-skype" aria-hidden="true"></i>
+            </a>
+        </div>
+        <div class="ml-3 mr-1">
+            <a id="" class="btn btn-outline-success text-white" href="#" role="button">
+                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+            </a>
+        </div>
+        <div class="text-white">
+            <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                <i class="fa fa-user-circle" aria-hidden="true"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right">
+                <a class="dropdown-item text-center" href="#">
+                    Login
+                    <i class="fa fa-sign-in" aria-hidden="true"></i>
+                </a>
+                <a class="dropdown-item text-center" href="#">
+                    Register
+                    <i class="fa fa-user-plus" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
     </div>
 </nav>
