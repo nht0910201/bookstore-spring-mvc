@@ -13,4 +13,13 @@ public class HomeController {
     public String showHomePage(ModelMap modelMap) {
         return "viewHome/Index";
     }
+    @GetMapping(path = "/404")
+    public String showErrorPage() {
+        return "404";
+    }
+    @GetMapping(path = "/204")
+    public String showOtherPage() {
+        return "204";
+    }
 }
+
