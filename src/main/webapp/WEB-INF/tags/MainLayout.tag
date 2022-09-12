@@ -14,7 +14,9 @@
 </head>
 <body>
     <jsp:include page="../../views/partials/Header.jsp"/>
-    <jsp:doBody/>
+    <div class="row">
+        <jsp:doBody/>
+    </div>
     <jsp:include page="../../views/partials/Footer.jsp"/>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
@@ -23,7 +25,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
         integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF"
         crossorigin="anonymous"></script>
-<%--    <script src="${pageContext.request.contextPath}/js/search.js"></script>--%>
+    <script src="${pageContext.request.contextPath}/js/main.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <jsp:invoke fragment="js"/>
 </body>

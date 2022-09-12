@@ -1,4 +1,4 @@
-package com.hcmute.mobilestore;
+package com.hcmute.cinema;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,10 +6,10 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 
 @ServletComponentScan
 @SpringBootApplication
-public class MobilestoreApplication {
+public class CinemaApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MobilestoreApplication.class, args);
+		SpringApplication.run(CinemaApplication.class, args);
 	}
 
 }

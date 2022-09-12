@@ -1,4 +1,4 @@
-package com.hcmute.mobilestore.controllers;
+package com.hcmute.cinema.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
