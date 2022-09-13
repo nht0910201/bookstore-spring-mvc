@@ -49,8 +49,8 @@
                         <form id="frmLogout" class="hide" method="post" action="${pageContext.request.contextPath}/auth/logout"></form>
                         <c:choose>
                             <c:when test="${role == 'CUSTOMER'}">
-                                <a class="dropdown-item" href="#">
-                                    <i class="fa fa-user" aria-hidden="true"></i> Trang cá nhân
+                                <a class="dropdown-item" href="${pageContext.request.contextPath}/user/profile">
+                                    <i class="fa fa-user" aria-hidden="true"></i> Profile
                                 </a>
                                 <a class="dropdown-item" href="#">
                                     <i class="fa fa-first-order" aria-hidden="true"></i>

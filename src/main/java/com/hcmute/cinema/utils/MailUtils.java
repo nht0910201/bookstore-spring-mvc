@@ -1,8 +1,10 @@
-package com.hcmute.cinema.Utils;
+package com.hcmute.cinema.utils;
 
 import com.hcmute.cinema.Config.Constant;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
 
-import javax.mail.*;
+import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
@@ -10,33 +12,32 @@ import java.util.Random;
 
 public class MailUtils {
     private static int randomOTP;
-    public static void send(String to, String sub, String msg) {
 
-        Properties props = new Properties();
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.port", "587");
-        props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
-        Session session = Session.getInstance(props, new javax.mail.Authenticator(){
-            @Override
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(Constant.SYSTEM_EMAIL,Constant.SYSTEM_EMAIL_PASSWORD);
-            }
-        });
+    public static void send(String to, String sub, String msg) {
         try {
-            MimeMessage message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(Constant.SYSTEM_EMAIL));
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-            message.setSubject(sub);
-            message.setContent(msg, "text/html;charset=UTF-8");
-            Transport.send(message);
-            System.out.println("Send e-mail successfully");
-        } catch (MessagingException e) {
+            JavaMailSenderImpl emailSender = new JavaMailSenderImpl();
+            emailSender.setHost("smtp.gmail.com");
+            emailSender.setPort(587);
+            emailSender.setUsername(Constant.SYSTEM_EMAIL);
+            emailSender.setPassword(Constant.SYSTEM_EMAIL_PASSWORD);
+
+            Properties properties = new Properties();
+            properties.setProperty("mail.smtp.auth", "true");
+            properties.setProperty("mail.smtp.starttls.enable", "true");
+            emailSender.setJavaMailProperties(properties);
+
+            MimeMessage message = emailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message);
+            helper.setFrom(new InternetAddress(Constant.SYSTEM_EMAIL));
+            helper.setTo(to);
+            helper.setSubject(sub);
+            helper.setText(msg, true);
+            emailSender.send(message);
+        }catch (Exception e){
             e.printStackTrace();
         }
-    }
 
+    }
     public static boolean sendOTP(String email, String userOTP) {
         if (userOTP.equals("")) {
             try {
@@ -53,7 +54,6 @@ public class MailUtils {
                         + "\n"
                         + "<body>\n"
                         + "    <h3 style=\"color: blue;\">Your OTP</h3>\n"
-                        + "    <div>Email :" + email + "</div>\n"
                         + "    <div>Your OTP :" + random + "</div>\n"
                         + "\n"
                         + "</body>\n"
@@ -62,7 +62,7 @@ public class MailUtils {
                 MailUtils.send(email, subject, message);
                 return true;
             } catch (Exception e) {
-                return false;
+                e.printStackTrace();
             }
         } else {
             if (Integer.parseInt(userOTP,10) == randomOTP) {
@@ -72,9 +72,10 @@ public class MailUtils {
                 return true;
             } else return false;
         }
+        return false;
     }
 
-    public static void sendResetPassword(String email, String newPassword ){
+    public static void sendResetPassword(String email, String newPassword ) throws MessagingException {
         String subject = "Reset password request | Auction Website";
         String message = "<!DOCTYPE html>\n"
                 + "<html lang=\"en\">\n"

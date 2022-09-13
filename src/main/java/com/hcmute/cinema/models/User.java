@@ -1,14 +1,12 @@
 package com.hcmute.cinema.models;
 
 import com.sun.istack.NotNull;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 @Table(name = "users")
@@ -28,19 +26,25 @@ public class User {
     @NotNull
     private LocalDateTime dob;
     @NotNull
-    private String phone_number;
+    private String phone;
     @NotNull
     private String role;
     @NotNull
     private String state;
 
-    public User(String name, String email, String password, LocalDateTime dob, String phone_number, String role, String state) {
+    public User(String name, String email, String password, LocalDateTime dob, String phone, String role, String state) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.dob = dob;
-        this.phone_number = phone_number;
+        this.phone = phone;
         this.role = role;
         this.state = state;
+    }
+    public User(String name, String email, LocalDateTime dob, String phone) {
+        this.name = name;
+        this.email = email;
+        this.dob = dob;
+        this.phone = phone;
     }
 }
