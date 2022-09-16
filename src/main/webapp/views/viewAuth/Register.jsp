@@ -158,7 +158,7 @@
                     I have an account ?
                     <a class="btn btn-outline-danger" id="switchLogin"
                        href="${pageContext.request.contextPath}/auth/login" role="button">
-                        Sign In
+                        SING IN
                     </a>
                 </div>
             </form>

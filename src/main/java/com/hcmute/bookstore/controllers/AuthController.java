@@ -1,8 +1,8 @@
-package com.hcmute.cinema.controllers;
+package com.hcmute.bookstore.controllers;
 
 
-import com.hcmute.cinema.services.auth.IAuthService;
-import com.hcmute.cinema.repository.UserRepository;
+import com.hcmute.bookstore.services.auth.IAuthService;
+import com.hcmute.bookstore.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -1,6 +1,6 @@
-package com.hcmute.cinema.filters;
+package com.hcmute.bookstore.filters;
 
-import com.hcmute.cinema.models.User;
+import com.hcmute.bookstore.models.User;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;

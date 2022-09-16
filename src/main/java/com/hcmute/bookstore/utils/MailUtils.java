@@ -1,6 +1,6 @@
-package com.hcmute.cinema.utils;
+package com.hcmute.bookstore.utils;
 
-import com.hcmute.cinema.Config.Constant;
+import com.hcmute.bookstore.Config.Constant;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 

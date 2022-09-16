@@ -2,7 +2,7 @@
 <%@ taglib prefix="m1" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%--<jsp:useBean id="user" scope="request" type="com.hcmute.cinema.models.User"/>--%>
+<%--<jsp:useBean id="user" scope="request" type="com.hcmute.bookstore.models.User"/>--%>
 <m1:Auth>
     <jsp:attribute name="css">
         <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
@@ -11,12 +11,12 @@
         <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
         <script>
             const oldEmail = $('#updateEmail').val();
-            console.log('Old: '+oldEmail)
+            console.log('Old: ' + oldEmail)
 
-            function handleChange(){
+            function handleChange() {
                 let newEmail = $('#updateEmail').val()
                 console.log(newEmail)
-                if(oldEmail!==newEmail){
+                if (oldEmail !== newEmail) {
                     $('#btnOTP').removeAttr('disabled')
                     $('#updateOtp').removeAttr('disabled')
                     $('#btnOTP').on('click', function () {
@@ -52,7 +52,7 @@
                     const email = $('#updateEmail').val();
                     const otp = $('#updateOtp').val();
                     if (otp !== '') {
-                        $.getJSON('${pageContext.request.contextPath}/auth/sendOTP?email=' + email+'&otp=' +otp, function (otpData) {
+                        $.getJSON('${pageContext.request.contextPath}/auth/sendOTP?email=' + email + '&otp=' + otp, function (otpData) {
                             if (otpData === false) {
                                 swal({
                                     title: "Wrong OTP!",
@@ -62,7 +62,7 @@
                                     dangerMode: true,
                                     closeOnClickOutside: false,
                                 });
-                            }else{
+                            } else {
                                 $('#formRegister').off('submit').submit();
                             }
                         });
@@ -89,10 +89,9 @@
                         });
                     }
 
-                }
-                else{
-                    $('#btnOTP').attr('disabled',true)
-                    $('#updateOtp').attr('disabled',true)
+                } else {
+                    $('#btnOTP').attr('disabled', true)
+                    $('#updateOtp').attr('disabled', true)
                     $('#formRegister').on('submit', function (e) {
                         e.preventDefault();
                         Validator({
@@ -120,16 +119,18 @@
     </jsp:attribute>
     <jsp:body>
         <div class="mx-auto col-lg-5 mt-lg-5">
-            <form class="p-5 mx-auto border rounded-lg shadow bg-light" id="formRegister" method="post" action="/user/update/${authUser.id}">
-<%--                <div class="text-center mb-3">--%>
-<%--                    <h3 class="text-primary" style="font-family: 'Russo One',sans-serif">--%>
-<%--                        <b>PROFILE</b>--%>
-<%--                    </h3>--%>
-<%--                </div>--%>
+            <form class="p-5 mx-auto border rounded-lg shadow bg-light" id="formRegister" method="post"
+                  action="/user/update/${authUser.id}">
+                    <%--                <div class="text-center mb-3">--%>
+                    <%--                    <h3 class="text-primary" style="font-family: 'Russo One',sans-serif">--%>
+                    <%--                        <b>PROFILE</b>--%>
+                    <%--                    </h3>--%>
+                    <%--                </div>--%>
                 <div class="form-group d-flex justify-content-center">
-                    <img src="https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png" class="rounded-circle" style="width: 150px;"
-                         alt="Avatar" />
-<%--                    <input type="file" name="avatar" class="mx-auto" accept=".jpg,.png,.gif">--%>
+                    <img src="https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png"
+                         class="rounded-circle" style="width: 150px;"
+                         alt="Avatar"/>
+                        <%--                    <input type="file" name="avatar" class="mx-auto" accept=".jpg,.png,.gif">--%>
                 </div>
                 <div class="form-group">
                     <input type="text" value="${authUser.name}" class="form-control" id="updateName" name="name"
@@ -137,8 +138,9 @@
                     <span class="form-message mx-auto text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <fmt:parseDate value="${authUser.dob}" pattern="yyyy-MM-dd" var="parsedDateTime" type="both" />
-                    <input type="text" value="<fmt:formatDate pattern="dd/MM/YYYY" value="${parsedDateTime}"/>" class="form-control" id="updateDob"
+                    <fmt:parseDate value="${authUser.dob}" pattern="yyyy-MM-dd" var="parsedDateTime" type="both"/>
+                    <input type="text" value="<fmt:formatDate pattern="dd/MM/YYYY" value="${parsedDateTime}"/>"
+                           class="form-control" id="updateDob"
                            name="dob">
                     <span class="form-message mx-auto text-danger"></span>
                 </div>
@@ -148,7 +150,8 @@
                 </div>
                 <div class="form-group">
                     <div class="d-flex d-inline-block ">
-                        <input type="email" value="${authUser.email}" class="form-control" id="updateEmail" name="email" onchange="handleChange()">
+                        <input type="email" value="${authUser.email}" class="form-control" id="updateEmail" name="email"
+                               onchange="handleChange()">
                         <button type="button" class="btn btn-info ml-1" disabled id="btnOTP">OTP</button>
                     </div>
                     <span class="form-message mx-auto text-danger"></span>
@@ -157,7 +160,7 @@
                     <input type="text" placeholder="OTP" name="otp" class="form-control" disabled id="updateOtp">
                     <span class="form-message mx-auto text-danger"></span>
                 </div>
-<%--                <hr class="w-100 mx-auto bg-primary">--%>
+                    <%--                <hr class="w-100 mx-auto bg-primary">--%>
                 <div class="d-flex justify-content-around">
                     <div class="text-center">
                         <a class="btn btn-outline-success" href="${pageContext.request.contextPath}/Home" role="button">
@@ -181,6 +184,14 @@
                 <c:if test="${hasError}">
                     <div class="alert alert-danger alert-dismissible fade show w-75 mx-auto" role="alert">
                         <strong>Sign Up Fail: </strong> ${errorMessage}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </c:if>
+                <c:if test="${hasNotify}">
+                    <div class="alert alert-success alert-dismissible fade show w-75 mx-auto" role="alert">
+                        <strong>Sign Up Fail: </strong> ${successMessage}
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>

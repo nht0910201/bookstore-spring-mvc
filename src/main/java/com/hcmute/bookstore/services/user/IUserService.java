@@ -1,4 +1,4 @@
-package com.hcmute.cinema.services.user;
+package com.hcmute.bookstore.services.user;
 
 import org.springframework.ui.ModelMap;
 

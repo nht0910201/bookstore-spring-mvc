@@ -1,4 +1,4 @@
-package com.hcmute.cinema.services.auth;
+package com.hcmute.bookstore.services.auth;
 
 import org.springframework.ui.ModelMap;
 import javax.servlet.http.HttpServletRequest;

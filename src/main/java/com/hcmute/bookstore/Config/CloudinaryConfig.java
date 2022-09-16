@@ -1,6 +1,6 @@
-package com.hcmute.cinema.Config;
+package com.hcmute.bookstore.Config;
 
-import com.hcmute.cinema.utils.ImageUtils;
+import com.hcmute.bookstore.utils.ImageUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import com.cloudinary.utils.ObjectUtils;

@@ -1,7 +1,7 @@
-package com.hcmute.cinema.services.user;
+package com.hcmute.bookstore.services.user;
 
-import com.hcmute.cinema.models.User;
-import com.hcmute.cinema.repository.UserRepository;
+import com.hcmute.bookstore.models.User;
+import com.hcmute.bookstore.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
@@ -27,7 +27,6 @@ public class UserService implements IUserService{
             return "viewAccount/Profile";
         }
     }
-
     @Override
     public String update(ModelMap modelMap, HttpServletRequest request,int id) {
         Optional<User> user = userRepository.findUserByID(id);

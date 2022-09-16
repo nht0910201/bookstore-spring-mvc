@@ -1,4 +1,4 @@
-package com.hcmute.cinema.models;
+package com.hcmute.bookstore.models;
 
 import com.sun.istack.NotNull;
 import lombok.Getter;
@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @NotNull
     private String name;
@@ -48,3 +48,4 @@ public class User {
         this.phone = phone;
     }
 }
+

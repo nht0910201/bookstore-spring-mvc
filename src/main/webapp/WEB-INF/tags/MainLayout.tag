@@ -11,11 +11,17 @@
           integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <%--    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css">--%>
+    <jsp:invoke fragment="css"/>
 </head>
 <body>
     <jsp:include page="../../views/partials/Header.jsp"/>
     <div class="row">
-        <jsp:doBody/>
+        <div class="col-sm-2">
+            <jsp:include page="../../views/partials/SideBar.jsp"/>
+        </div>
+        <div class="col-sm-10">
+            <jsp:doBody/>
+        </div>
     </div>
     <jsp:include page="../../views/partials/Footer.jsp"/>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>

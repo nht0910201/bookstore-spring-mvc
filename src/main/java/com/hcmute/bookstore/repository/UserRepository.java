@@ -1,6 +1,6 @@
-package com.hcmute.cinema.repository;
+package com.hcmute.bookstore.repository;
 
-import com.hcmute.cinema.models.User;
+import com.hcmute.bookstore.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

@@ -42,7 +42,7 @@
                 </div>
 
                 <div class="text-center">
-                    <button type="submit" class="btn btn-primary w-100" id="btnLogIn">Log In</button>
+                    <button type="submit" class="btn btn-primary w-100" id="btnLogIn">LOG IN</button>
                 </div>
                 <div class="text-center mt-2">
                     <a class="text-primary" href="#">
@@ -58,12 +58,12 @@
     &client_id=968786308056-9k67nqlp92f8m7ak4060b75n1pjsfj0n.apps.googleusercontent.com&approval_prompt=force"
                        role="button">
                         <i class="fa fa-google-plus mr-3" aria-hidden="true"></i>
-                        Đăng nhập với Google
+                        LOGIN WITH GOOGLE
                     </a>
                 </div>
                 <div class="text-center mt-3">
                     I don't have an account ?
-                    <a href="${pageContext.request.contextPath}/auth/register">Sign up</a>
+                    <a href="${pageContext.request.contextPath}/auth/register">SIGN UP</a>
                 </div>
             </form>
         </div>

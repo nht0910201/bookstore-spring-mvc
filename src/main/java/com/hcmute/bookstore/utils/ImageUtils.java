@@ -1,4 +1,4 @@
-package com.hcmute.cinema.utils;
+package com.hcmute.bookstore.utils;
 
 import org.springframework.web.multipart.MultipartFile;
 

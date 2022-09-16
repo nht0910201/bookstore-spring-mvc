@@ -1,6 +1,5 @@
-package com.hcmute.cinema.controllers;
+package com.hcmute.bookstore.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;

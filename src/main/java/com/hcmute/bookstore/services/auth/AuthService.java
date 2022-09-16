@@ -1,10 +1,10 @@
-package com.hcmute.cinema.services.auth;
+package com.hcmute.bookstore.services.auth;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
-import com.hcmute.cinema.Config.Constant;
-import com.hcmute.cinema.models.User;
-import com.hcmute.cinema.repository.UserRepository;
-import com.hcmute.cinema.utils.MailUtils;
+import com.hcmute.bookstore.Config.Constant;
+import com.hcmute.bookstore.models.User;
+import com.hcmute.bookstore.repository.UserRepository;
+import com.hcmute.bookstore.utils.MailUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
