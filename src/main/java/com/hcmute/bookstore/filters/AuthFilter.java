@@ -25,19 +25,18 @@ public class AuthFilter implements Filter {
         HttpSession session = req.getSession();
         boolean auth = (boolean) session.getAttribute("auth");
         User authUser = (User) session.getAttribute("authUser");
-        int role = (int) session.getAttribute("role");
+        String role = (String) session.getAttribute("role");
 
         if (!auth) {
             res.sendRedirect("/auth/login");
             return;
         }
-
-//        if (req.getRequestURI().equals("/Admin/Manage")) {
-//            if (role == 2) {
-//                res.sendRedirect("/Home");
-//                return;
-//            }
-//        }
+        if (req.getRequestURI().equals("/admin/manage")) {
+            if (role.equals("CUSTOMER")) {
+                res.sendRedirect("/Home");
+                return;
+            }
+        }
 
         chain.doFilter(request, response);
     }

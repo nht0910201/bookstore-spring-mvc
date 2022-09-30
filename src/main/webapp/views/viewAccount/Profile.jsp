@@ -11,17 +11,15 @@
         <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
         <script>
             const oldEmail = $('#updateEmail').val();
-            console.log('Old: ' + oldEmail)
-
             function handleChange() {
                 let newEmail = $('#updateEmail').val()
-                console.log(newEmail)
                 if (oldEmail !== newEmail) {
                     $('#btnOTP').removeAttr('disabled')
                     $('#updateOtp').removeAttr('disabled')
+                    // Gửi OTP
                     $('#btnOTP').on('click', function () {
                         $('#btnOTP').html('<div class="spinner-grow text-primary" role="status"> <span class="sr-only">Loading...</span></div>');
-                        if ($('#updateEmail').val() == 0) {
+                        if ($('#updateEmail').val() ==='') {
                             swal({
                                 title: "Invalid email!",
                                 text: "Please fill your valid email!",
@@ -49,53 +47,58 @@
                             });
                         }
                     });
-                    const email = $('#updateEmail').val();
-                    const otp = $('#updateOtp').val();
-                    if (otp !== '') {
-                        $.getJSON('${pageContext.request.contextPath}/auth/sendOTP?email=' + email + '&otp=' + otp, function (otpData) {
-                            if (otpData === false) {
-                                swal({
-                                    title: "Wrong OTP!",
-                                    text: "Your OTP is invalid",
-                                    icon: "error",
-                                    button: "OK!",
-                                    dangerMode: true,
-                                    closeOnClickOutside: false,
-                                });
-                            } else {
-                                $('#formRegister').off('submit').submit();
-                            }
+                    $('#formUpdate').on('submit', function (e) {
+                        e.preventDefault();
+                        Validator({
+                            form: '#formUpdate',
+                            formGroupSelector: '.form-group',
+                            errorSelector: '.form-message',
+                            rules: [
+                                Validator.isRequired('#updateName', 'Vui lòng nhập đầy đủ họ tên'),
+                                Validator.isRequired('#updateDob', 'Vui lòng chọn ngày tháng năm sinh'),
+                                Validator.isRequired('#updateEmail', 'Vui lòng nhập email'),
+                                Validator.isEmail('#updateEmail', 'Vui lòng nhập email chính xác'),
+                                Validator.isRequired('#updatePhone', 'Vui lòng nhập số điện thoại'),
+                                Validator.isRequired('#updateOtp', 'Vui lòng nhập OTP'),
+                            ],
                         });
-                    } else {
-                        swal({
-                            title: "Wrong OTP!",
-                            text: "Your OTP is invalid. Please try again!",
-                            icon: "error",
-                            button: "OK!",
-                            dangerMode: true,
-                            closeOnClickOutside: false,
-                        });
-                        $('#formRegister').on('submit', function (e) {
-                            e.preventDefault();
-                            Validator({
-                                form: '#formRegister',
-                                formGroupSelector: '.form-group',
-                                errorSelector: '.form-message',
-                                rules: [
-                                    Validator.isRequired('#updateOtp', 'Vui lòng nhập OTP'),
-                                ],
+                        const email = $('#updateEmail').val();
+                        const otp = $('#updateOtp').val();
+                        // Check OTP
+                        if (otp !== '') {
+                            $.getJSON('${pageContext.request.contextPath}/auth/sendOTP?email=' + email+'&otp=' +otp, function (otpData) {
+                                if (otpData === false) {
+                                    swal({
+                                        title: "Wrong OTP!",
+                                        text: "Your OTP is invalid. Please try again!",
+                                        icon: "error",
+                                        button: "OK!",
+                                        dangerMode: true,
+                                        closeOnClickOutside: false,
+                                    });
+                                } else {
+                                    $('#formUpdate').off('submit').submit();
+                                }
                             });
-                            $('#formRegister').off('submit').submit();
-                        });
-                    }
+                        } else {
+                            swal({
+                                title: "OTP",
+                                text: "Please enter your OTP have been sent to your new email",
+                                icon: "warning",
+                                button: "OK!",
+                                dangerMode: true,
+                                closeOnClickOutside: false,
+                            });
+                        }
+                    });
 
                 } else {
                     $('#btnOTP').attr('disabled', true)
                     $('#updateOtp').attr('disabled', true)
-                    $('#formRegister').on('submit', function (e) {
+                    $('#formUpdate').on('submit', function (e) {
                         e.preventDefault();
                         Validator({
-                            form: '#formRegister',
+                            form: '#formUpdate',
                             formGroupSelector: '.form-group',
                             errorSelector: '.form-message',
                             rules: [
@@ -106,11 +109,9 @@
                                 Validator.isEmail('#updateEmail', 'Vui lòng nhập email chính xác'),
                             ],
                         });
-                        $('#formRegister').off('submit').submit();
                     });
                 }
             }
-
             $(function () {
                 $("#updateDob").datepicker();
             });
@@ -119,18 +120,12 @@
     </jsp:attribute>
     <jsp:body>
         <div class="mx-auto col-lg-5 mt-lg-5">
-            <form class="p-5 mx-auto border rounded-lg shadow bg-light" id="formRegister" method="post"
+            <form class="p-5 mx-auto border rounded-lg shadow bg-light" id="formUpdate" method="post"
                   action="/user/update/${authUser.id}">
-                    <%--                <div class="text-center mb-3">--%>
-                    <%--                    <h3 class="text-primary" style="font-family: 'Russo One',sans-serif">--%>
-                    <%--                        <b>PROFILE</b>--%>
-                    <%--                    </h3>--%>
-                    <%--                </div>--%>
                 <div class="form-group d-flex justify-content-center">
                     <img src="https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png"
                          class="rounded-circle" style="width: 150px;"
                          alt="Avatar"/>
-                        <%--                    <input type="file" name="avatar" class="mx-auto" accept=".jpg,.png,.gif">--%>
                 </div>
                 <div class="form-group">
                     <input type="text" value="${authUser.name}" class="form-control" id="updateName" name="name"
@@ -189,15 +184,6 @@
                         </button>
                     </div>
                 </c:if>
-                <c:if test="${hasNotify}">
-                    <div class="alert alert-success alert-dismissible fade show w-75 mx-auto" role="alert">
-                        <strong>Sign Up Fail: </strong> ${successMessage}
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                </c:if>
-
             </form>
         </div>
     </jsp:body>

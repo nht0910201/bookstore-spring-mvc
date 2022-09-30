@@ -40,7 +40,6 @@
                                 dangerMode: true,
                                 closeOnClickOutside: false,
                             });
-                            grecaptcha. reset();
                         } else {
                             $('#formRegister').off('submit').submit();
                         }
@@ -54,7 +53,6 @@
                         dangerMode: true,
                         closeOnClickOutside: false,
                     });
-                    grecaptcha. reset();
                 }
             });
             $('#btnOTP').on('click', function () {

@@ -8,10 +8,10 @@
 .list-img img {
     cursor: pointer;
 }
-#main_img {
-    width: 600px;
-}
-#main_img img {
-    width: 600px;
-}
+/*#main_img {*/
+/*    width: auto;*/
+/*}*/
+/*#main_img img {*/
+/*    width: 0px;*/
+/*}*/
 
