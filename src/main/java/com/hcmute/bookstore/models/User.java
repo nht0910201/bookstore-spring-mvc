@@ -17,19 +17,12 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @NotNull
     private String name;
-    @NotNull
     private String email;
-    @NotNull
     private String password;
-    @NotNull
     private LocalDateTime dob;
-    @NotNull
     private String phone;
-    @NotNull
     private String role;
-    @NotNull
     private String state;
 
     public User(String name, String email, String password, LocalDateTime dob, String phone, String role, String state) {
@@ -46,6 +39,23 @@ public class User {
         this.email = email;
         this.dob = dob;
         this.phone = phone;
+    }
+
+    public User(String name, String email, String password, String phone, String role,String state) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.phone = phone;
+        this.role = role;
+        this.state = state;
+    }
+
+    public User(String name, String email, String phone, String role, String state) {
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.role = role;
+        this.state = state;
     }
 }
 

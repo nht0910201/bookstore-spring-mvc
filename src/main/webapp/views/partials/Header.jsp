@@ -31,8 +31,6 @@
                     <div class="dropdown-menu dropdown-menu-right">
                         <c:choose>
                             <c:when test="${auth}">
-                                <form id="frmLogout" class="hide" method="post"
-                                      action="${pageContext.request.contextPath}/auth/logout"></form>
                                 <c:choose>
                                     <c:when test="${role == 'CUSTOMER'}">
                                         <a class="dropdown-item d-flex justify-content-between align-items-center" href="${pageContext.request.contextPath}/user/profile">
@@ -52,10 +50,11 @@
                                         <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">
                                             MY ORDER
                                             <i class="fa fa-history" aria-hidden="true"></i>
+
                                         </a>
                                         <a class="dropdown-item d-flex justify-content-between align-items-center" href="${pageContext.request.contextPath}/admin/manage">
                                             MANAGE
-                                            <i class="fa fa-history" aria-hidden="true"></i>
+                                            <i class="fa fa-cog" aria-hidden="true"></i>
                                         </a>
                                     </c:otherwise>
                                 </c:choose>
@@ -63,6 +62,8 @@
                                     LOG OUT
                                     <i class="fa fa-sign-out" aria-hidden="true"></i>
                                 </a>
+                                <form id="frmLogout" class="hide" method="post"
+                                      action="${pageContext.request.contextPath}/auth/logout"></form>
                             </c:when>
                             <c:otherwise>
                                 <a class="dropdown-item d-flex justify-content-between align-items-center" href="${pageContext.request.contextPath}/auth/login">

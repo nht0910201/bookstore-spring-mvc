@@ -45,7 +45,7 @@ public class MailUtils {
                 int random = rnd.nextInt(999999);
                 randomOTP = random;
                 String.format("%06d", random);
-                String subject = "OTP Verify From BHD Star";
+                String subject = "OTP Verify From E-book Website";
                 String message = "<!DOCTYPE html>\n"
                         + "<html lang=\"en\">\n"
                         + "\n"
@@ -75,8 +75,8 @@ public class MailUtils {
         return false;
     }
 
-    public static void sendResetPassword(String email, String newPassword ) throws MessagingException {
-        String subject = "Reset password request | Auction Website";
+    public static void sendPassword(String email, String newPassword ) throws MessagingException {
+        String subject = "Info User | E-book Website";
         String message = "<!DOCTYPE html>\n"
                 + "<html lang=\"en\">\n"
                 + "\n"
@@ -84,9 +84,9 @@ public class MailUtils {
                 + "</head>\n"
                 + "\n"
                 + "<body>\n"
-                + "    <h3 style=\"color: blue;\">Your password has been reset.</h3>\n"
-                + "    <div>Email :" + email + "</div>\n"
-                + "    <div>Your reset password :" + newPassword + "</div>\n"
+                + "    <h3 style=\"color: blue;\">Your account has been created.</h3>\n"
+                + "    <div>Username/Email :" + email + "</div>\n"
+                + "    <div>Your password :" + newPassword + "</div>\n"
                 + "\n"
                 + "</body>\n"
                 + "\n"

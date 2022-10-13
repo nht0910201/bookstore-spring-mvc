@@ -51,7 +51,7 @@ public class CloudinaryConfig {
         return map.get("secure_url").toString();
     }
     public void deleteImage(String urlImage) throws IOException {
-        cloudinary().uploader().destroy("tgdd/" + getPublicId(urlImage)
+        cloudinary().uploader().destroy("cinema/" + getPublicId(urlImage)
                 , ObjectUtils.asMap("resource_type", "image"));
     }
 }

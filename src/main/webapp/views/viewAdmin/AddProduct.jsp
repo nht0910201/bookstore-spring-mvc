@@ -2,6 +2,7 @@
 <%@ taglib prefix="m1" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<jsp:useBean id="categories" scope="request" type="java.util.List<com.hcmute.bookstore.models.Category>"/>
 <m1:Admin>
     <jsp:attribute name="css">
         <link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.5/css/fileinput.min.css" media="all"
@@ -15,7 +16,6 @@
         <script>
             $('#frmAddProduct').on('submit', function (e) {
                 e.preventDefault();
-                // tinymce.triggerSave();
                 Validator({
                     form: '#frmAddProduct',
                     formGroupSelector: '.form-group',
@@ -33,26 +33,8 @@
                         Validator.isRequired('#pics', 'Please upload picture products')
                     ],
                 });
-                // check = $('#txtEndDay').val();
-                // let parts = check.split('/');
-                // let d = new Date()
-                // x = new Date(parts[2],parts[1]-1,parts[0]);
-                //
-                // if ((d-x)>=0) {
-                //     swal({
-                //         title: "Warning!",
-                //         text: "Please check Ending date!",
-                //         icon: "warning",
-                //         button: "OK!",
-                //         closeOnClickOutside: false,
-                //     });
-                // } else {
                     $('#frmAddProduct').off('submit').submit();
-                // }
             })
-            // tinymce.init({
-            //     selector: '#txtDes'
-            // });
             tinymce.init({
                 selector: '#txtDes',
                 height: 250,
@@ -62,15 +44,15 @@
                     'undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright | forecolor backcolor | table link image media'
                 ],
             });
-            // $('#pics').fileinput({
-            //     msgPlaceholder: 'Please choose main image first...And at least 2 more images',
-            //     theme: 'fa',
-            //     minFileCount: 2,
-            //     maxFileCount: 4,
-            //     dropZoneEnabled: false,
-            //     allowedFileExtensions: ['jpg','.png'],
-            //     captionClass: 'bo-0'
-            // });
+            $('#pics').fileinput({
+                msgPlaceholder: 'Please choose at least 1 image',
+                theme: 'fa',
+                // minFileCount: 2,
+                maxFileCount: 4,
+                dropZoneEnabled: false,
+                allowedFileExtensions: ['jpg','.png'],
+                captionClass: 'bo-0'
+            });
         </script>
     </jsp:attribute>
     <jsp:body>
@@ -96,8 +78,9 @@
                         <label for="txtCat" style="font-weight: bold">Category:</label>
                         <select name="category" id="txtCat" class="w-100"
                                 style="height: 40px">
-                            <option value="3">Truyện ngắn</option>
-                            <option value="2">Truyện tranh</option>
+                            <c:forEach items="${categories}" var="category">
+                                <option value="${category.id}">${category.name}</option>
+                            </c:forEach>
                         </select>
                         <span class="form-message"></span>
                     </div>

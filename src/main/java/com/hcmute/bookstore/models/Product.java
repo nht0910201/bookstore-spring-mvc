@@ -43,6 +43,8 @@ public class Product {
 
     private String state;
 
+    private String categoryName;
+
     @Transient
     private List<ProductImage> productImages;
     @Transient
