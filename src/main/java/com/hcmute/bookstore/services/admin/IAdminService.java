@@ -29,4 +29,6 @@ public interface IAdminService {
     String showUpdateCategory(HttpServletRequest request,int id);
     String updateCategory(HttpServletRequest request,int id);
     void deleteCategory(HttpServletRequest request, HttpServletResponse response, int id) throws IOException;
+    String updateOrder(HttpServletRequest request,int id);
+    void deleteOrder(HttpServletRequest request,HttpServletResponse response,int id) throws IOException;
 }

@@ -25,6 +25,8 @@ public class Product {
 
     private int discount;
 
+    private int quantity;
+
     private String description;
 
     private int pageNum;
@@ -50,10 +52,11 @@ public class Product {
     @Transient
     private List<MultipartFile> imgs;
 
-    public Product(String name, double price, int discount, String description, int pageNum, String publisher, String author, String supplier, String size, String publishYear, int categoryId, String state) {
+    public Product(String name, double price, int discount, int quantity, String description, int pageNum, String publisher, String author, String supplier, String size, String publishYear, int categoryId, String state) {
         this.name = name;
         this.price = price;
         this.discount = discount;
+        this.quantity = quantity;
         this.description = description;
         this.pageNum = pageNum;
         this.publisher = publisher;

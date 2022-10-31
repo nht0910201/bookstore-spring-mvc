@@ -34,6 +34,7 @@
                         Validator.isRequired('#txtDes', 'Please fill your product description'),
                         Validator.isRequired('#txtCat', 'Please fill your category'),
                         // Validator.isRequired('#pics', 'Please upload picture products')
+                        Validator.isRequired('#txtQuantity', 'Please fill product quantity')
                     ],
                 });
                 $('#frmUpdateProduct').off('submit').submit();
@@ -168,6 +169,12 @@
                         <label for="txtDiscount" style="font-weight: bold">Discount: </label>
                         <input type="number" class="form-control" name="discount" id="txtDiscount"
                                value="${productUpdate.discount}"/>
+                        <span class="form-message text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtQuantity" style="font-weight: bold">Quantity: </label>
+                        <input type="number" class="form-control" name="quantity" id="txtQuantity"
+                               value="${productUpdate.quantity}"/>
                         <span class="form-message text-danger"></span>
                     </div>
                     <div class="form-group">

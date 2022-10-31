@@ -5,6 +5,30 @@
 <jsp:useBean id="product" scope="request" type="com.hcmute.bookstore.models.Product"/>
 <jsp:useBean id="product_image" scope="request" type="java.util.List<com.hcmute.bookstore.models.ProductImage>"/>
 <m1:SubLayout>
+    <jsp:attribute name="js">
+        <script>
+            function addToCart (url){
+                $.getJSON(url, function (data) {
+                    if (data === false) {
+                        swal({
+                            title: "Không thể thêm!",
+                            text: "Sản phẩm đã có trong giỏ hàng !",
+                            icon: "error",
+                            button: "OK!",
+                            dangerMode: true,
+                            closeOnClickOutside: false,
+                        });
+                    } else swal({
+                        title: "Thêm thành công!",
+                        text: "Bạn đã thêm sản phẩm vào giỏ hàng",
+                        icon: "success",
+                        button: "OK!",
+                        closeOnClickOutside: false,
+                    });
+                });
+            }
+        </script>
+    </jsp:attribute>
     <jsp:body>
         <div class="row bg-white d-flex justify-content-center">
             <div class="all col-sm-5 mt-4 p-0">
@@ -33,10 +57,10 @@
                 <fmt:parseNumber var="priceSales" type="number" integerOnly="true"
                                  value="${product.price - (product.price*product.discount/100)}"/>
                 <p class="text-primary">Còn: ${priceSales} VNĐ</p>
-                <a class="btn btn-outline-danger" href="#" role="button">
+                <button type="button" onclick="addToCart('${pageContext.request.contextPath}/cart/addToCart?pro_id=${product.id}&pro_name=${product.name}&price=${product.price}&quantity=1&discount=${product.discount}&user_id=${authUser.id}')" class="btn btn-primary">
                     <i class="fa fa-cart-plus" aria-hidden="true"></i>
-                    Thêm vào giỏ hàng
-                </a>
+                    Add To Cart
+                </button>
             </div>
             <hr class="w-100 mx-auto bg-primary" style="margin-top: 80px">
         </div>
@@ -64,8 +88,7 @@
                         <h5 class="card-title">Name</h5>
                         <p class="card-text" style="text-decoration-line: line-through">Price}</p>
                         <p class="card-text text-danger">Discount</p>
-                        <p class="card-text font-weight-bold">Price New</p>
-                            <%--                            <a href="#" class="btn btn-primary">Go somewhere</a>--%>
+                        <p class="card-text font-weight-bold">Price New</p>>
                     </div>
                 </div>
             </div>

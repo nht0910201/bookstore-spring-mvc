@@ -84,4 +84,12 @@ public class AdminController {
     public void deleteCategory(HttpServletRequest request,HttpServletResponse response,@PathVariable int id) throws IOException{
         adminService.deleteCategory(request,response,id);
     }
+    @PostMapping(value = "/process_order/{id}")
+    public String processOrder(HttpServletRequest request,@PathVariable int id){
+        return adminService.updateOrder(request,id);
+    }
+    @GetMapping(value = "/process_order/{id}")
+    public void processOrder(HttpServletRequest request,HttpServletResponse response, @PathVariable int id) throws IOException{
+        adminService.deleteOrder(request,response,id);
+    }
 }

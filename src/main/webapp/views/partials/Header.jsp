@@ -20,7 +20,7 @@
                 <button type="button" class="btn btn-success"><i class="fa fa-search" aria-hidden="true"></i></button>
             </div>
             <div class="d-flex align-items-center">
-                <a class="btn btn-danger ml-2" href="#" role="button">
+                <a class="btn btn-danger ml-2" href="${pageContext.request.contextPath}/cart/${authUser.id}" role="button">
                     <i class="fa fa-shopping-bag text-white" aria-hidden="true"></i>
                 </a>
                 <div>
@@ -37,7 +37,7 @@
                                             PROFILE
                                             <i class="fa fa-user" aria-hidden="true"></i>
                                         </a>
-                                        <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">
+                                        <a class="dropdown-item d-flex justify-content-between align-items-center" href="${pageContext.request.contextPath}/order/user/${authUser.id}">
                                             MY ORDER
                                             <i class="fa fa-history" aria-hidden="true"></i>
                                         </a>

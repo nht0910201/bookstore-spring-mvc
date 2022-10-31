@@ -15,7 +15,7 @@ public interface ProductRepository extends JpaRepository<Product,Integer> {
     @Query(value = "select * from products where id=:id and state ='enable'",nativeQuery = true)
     Optional<Product> findProductByID(@Param("id") int id);
 
-    @Query(value = "select products.id, products.category_id, products.description, products.discount, products.name, products.page_num, products.price, products.publish_year, products.publisher, products.size, products.supplier, products.state, products.author,products.category_name from  products,categories where products.id=:id and products.category_id = categories.id",nativeQuery = true)
+    @Query(value = "select products.id, products.category_id, products.description, products.discount,products.quantity,products.name, products.page_num, products.price, products.publish_year, products.publisher, products.size, products.supplier, products.state, products.author,products.category_name from  products,categories where products.id=:id and products.category_id = categories.id",nativeQuery = true)
     Optional<Product> findProductByAdmin(@Param("id") int id);
 
     @Query(value = "select * from products where name=:name and state='enable'",nativeQuery = true)

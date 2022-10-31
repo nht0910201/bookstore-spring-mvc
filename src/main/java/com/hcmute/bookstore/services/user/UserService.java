@@ -1,5 +1,6 @@
 package com.hcmute.bookstore.services.user;
 
+import com.hcmute.bookstore.Config.Constant;
 import com.hcmute.bookstore.models.User;
 import com.hcmute.bookstore.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -21,10 +22,11 @@ public class UserService implements IUserService{
     public String profile(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         boolean checkAuth = (boolean) session.getAttribute("auth");
-        if (!checkAuth) {
-            return "redirect:/Home";
-        } else {
+        String roleAuth = (String) session.getAttribute("role");
+        if (checkAuth && roleAuth.equals(Constant.ROLE_CUSTOMER)) {
             return "viewAccount/Profile";
+        } else {
+            return "redirect:/Home";
         }
     }
     @Override

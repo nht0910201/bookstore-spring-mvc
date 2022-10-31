@@ -3,14 +3,8 @@ package com.hcmute.bookstore.services.admin;
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.hcmute.bookstore.Config.CloudinaryConfig;
 import com.hcmute.bookstore.Config.Constant;
-import com.hcmute.bookstore.models.Category;
-import com.hcmute.bookstore.models.Product;
-import com.hcmute.bookstore.models.ProductImage;
-import com.hcmute.bookstore.models.User;
-import com.hcmute.bookstore.repository.CategoryRepository;
-import com.hcmute.bookstore.repository.ProductImageRepository;
-import com.hcmute.bookstore.repository.ProductRepository;
-import com.hcmute.bookstore.repository.UserRepository;
+import com.hcmute.bookstore.models.*;
+import com.hcmute.bookstore.repository.*;
 import com.hcmute.bookstore.utils.MailUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -42,6 +36,8 @@ public class AdminService implements IAdminService {
     private final ProductImageRepository productImageRepository;
     private final CategoryRepository categoryRepository;
     private final UserRepository userRepository;
+    private final OrderRepository orderRepository;
+    private final OrderItemRepository orderItemRepository;
 
     @Override
     public String showManagePage(HttpServletRequest request) {
@@ -61,6 +57,10 @@ public class AdminService implements IAdminService {
             request.setAttribute("categories", categories);
             List<Category> sub_categories = categoryRepository.findAll();
             request.setAttribute("sub_categories", sub_categories);
+            List<Order> orders = orderRepository.getAllOrder();
+            request.setAttribute("orders",orders);
+            List<OrderItem> orderItemList = orderItemRepository.findAll();
+            request.setAttribute("orderItemList",orderItemList);
             return "viewAdmin/Manage";
         } else {
             return "redirect:/Home";
@@ -89,6 +89,7 @@ public class AdminService implements IAdminService {
         int category = Integer.parseInt(request.getParameter("category"));
         double price = Double.parseDouble(request.getParameter("price"));
         int discount = Integer.parseInt(request.getParameter("discount"));
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
         String supplier = request.getParameter("supplier");
         String publisher = request.getParameter("publisher");
         String year = request.getParameter("year");
@@ -102,7 +103,7 @@ public class AdminService implements IAdminService {
             request.setAttribute("errorMessage", "Product already exist");
             return "viewAdmin/AddProduct";
         } else {
-            Product newProduct = new Product(name, price, discount, description, pageNum, publisher, author, supplier, size, year, category, "enable");
+            Product newProduct = new Product(name, price, discount, quantity,description, pageNum, publisher, author, supplier, size, year, category, "enable");
             productRepository.save(newProduct);
             Optional<Product> pro = productRepository.findProductByName(name);
             if (pro.isEmpty()) {
@@ -147,6 +148,7 @@ public class AdminService implements IAdminService {
         int category = Integer.parseInt(request.getParameter("category"));
         double price = Double.parseDouble(request.getParameter("price"));
         int discount = Integer.parseInt(request.getParameter("discount"));
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
         String supplier = request.getParameter("supplier");
         String publisher = request.getParameter("publisher");
         String year = request.getParameter("year");
@@ -161,6 +163,7 @@ public class AdminService implements IAdminService {
                 product.get().setCategoryId(category);
                 product.get().setPrice(price);
                 product.get().setDiscount(discount);
+                product.get().setQuantity(quantity);
                 product.get().setSupplier(supplier);
                 product.get().setPublisher(publisher);
                 product.get().setPublishYear(year);
@@ -215,6 +218,7 @@ public class AdminService implements IAdminService {
                     product.get().setCategoryId(category);
                     product.get().setPrice(price);
                     product.get().setDiscount(discount);
+                    product.get().setQuantity(quantity);
                     product.get().setSupplier(supplier);
                     product.get().setPublisher(publisher);
                     product.get().setPublishYear(year);
@@ -561,6 +565,59 @@ public class AdminService implements IAdminService {
                 out.print(true);
                 out.flush();
             }
+        }
+    }
+
+    @Override
+    public String updateOrder(HttpServletRequest request,int id) {
+        String address = request.getParameter("address");
+        String confirm = request.getParameter("confirm");
+        Optional<Order> order = orderRepository.getOrder(id);
+        if(order.isPresent()){
+            if(confirm.equals(Constant.ACCEPTED)){
+                order.get().setState(confirm);
+                order.get().setAddress(address);
+                List<OrderItem> orderItems = orderItemRepository.findCartById(id);
+                int pro_id;
+                if(orderItems.size() > 0) {
+                    for (OrderItem orderItem : orderItems) {
+                        pro_id = orderItem.getProductId();
+                        Optional<Product> product = productRepository.findById(pro_id);
+                        if(product.get().getQuantity()>orderItem.getQuantity()){
+                            product.get().setQuantity(product.get().getQuantity() - orderItem.getQuantity());
+                            productRepository.save(product.get());
+                            orderRepository.save(order.get());
+                        }
+                    }
+                }
+            }else if(confirm.equals(Constant.DELIVERY)){
+                order.get().setState(confirm);
+                order.get().setAddress(address);
+                orderRepository.save(order.get());
+            }
+            return "redirect:/admin/manage";
+        }else {
+            return "";
+        }
+    }
+
+    @Override
+    public void deleteOrder(HttpServletRequest request, HttpServletResponse response, int id) throws IOException {
+        Optional<Order> order = orderRepository.getOrder(id);
+        if(order.isPresent()){
+            order.get().setState(Constant.CANCELED);
+            orderRepository.save(order.get());
+            PrintWriter out = response.getWriter();
+            response.setContentType("application/json");
+            response.setCharacterEncoding("utf-8");
+            out.print(true);
+            out.flush();
+        }else{
+            PrintWriter out = response.getWriter();
+            response.setContentType("application/json");
+            response.setCharacterEncoding("utf-8");
+            out.print(false);
+            out.flush();
         }
     }
 }
