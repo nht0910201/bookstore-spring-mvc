@@ -10,7 +10,7 @@
                     if (data === false) {
                         swal({
                             title: "Không thể cập nhật!",
-                            text: "Đã có lỗi xảy ra !",
+                            text: "Đã có lỗi xảy ra. Số lượng sản phẩm không đủ !",
                             icon: "error",
                             button: "OK!",
                             dangerMode: true,

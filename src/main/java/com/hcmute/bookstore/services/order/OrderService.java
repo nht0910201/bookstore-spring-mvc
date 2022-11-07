@@ -124,7 +124,7 @@ public class OrderService implements IOrderService{
             return "viewOrder/ShowOrder";
         }
         else{
-            return "";
+            return "204";
         }
     }
 

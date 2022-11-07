@@ -102,6 +102,7 @@
                         <div class="form-group">
                             <label for="address">Address</label>
                             <textarea class="form-control" name="address" id="address" cols="30" rows="5" placeholder="Nhập địa chỉ"></textarea>
+                            <span class="form-message text-danger"></span>
                         </div>
                         <button type="submit" class="form-control btn btn-outline-danger">
                             Confirm

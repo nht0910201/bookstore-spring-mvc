@@ -33,6 +33,7 @@
         integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF"
         crossorigin="anonymous"></script>
     <script src="${pageContext.request.contextPath}/js/img.js"></script>
+    <script src="${pageContext.request.contextPath}/js/search.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <jsp:invoke fragment="js"/>
 </body>

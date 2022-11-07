@@ -259,9 +259,8 @@ public class AdminService implements IAdminService {
                 }
             }
         } else {
-            System.out.println("not found product");
+            return "204";
         }
-        return "";
     }
 
     @Override
@@ -425,8 +424,7 @@ public class AdminService implements IAdminService {
                 }
             }
         } else {
-            System.out.println("Cannot find user");
-            return "Cannot find user";
+            return "204";
         }
     }
 
@@ -534,8 +532,7 @@ public class AdminService implements IAdminService {
                 return "viewAdmin/UpdateCategory";
             }
         } else {
-            System.out.println("Cannot find category");
-            return "";
+            return "204";
         }
     }
 
@@ -587,6 +584,8 @@ public class AdminService implements IAdminService {
                             product.get().setQuantity(product.get().getQuantity() - orderItem.getQuantity());
                             productRepository.save(product.get());
                             orderRepository.save(order.get());
+                        }else{
+
                         }
                     }
                 }
@@ -597,7 +596,7 @@ public class AdminService implements IAdminService {
             }
             return "redirect:/admin/manage";
         }else {
-            return "";
+            return "204";
         }
     }
 

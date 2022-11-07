@@ -16,8 +16,10 @@
 
         <div class="d-flex align-items-center">
             <div class=" d-flex">
-                <input type="search" id="txtSearch" placeholder="Search" class="form-control mr-1">
-                <button type="button" class="btn btn-success"><i class="fa fa-search" aria-hidden="true"></i></button>
+                <input type="search" id="search" name="search" placeholder="Search" class="form-control mr-1">
+                <button type="button" class="btn btn-success" onclick="Found('${pageContext.request.contextPath}')">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </button>
             </div>
             <div class="d-flex align-items-center">
                 <a class="btn btn-danger ml-2" href="${pageContext.request.contextPath}/cart/${authUser.id}" role="button">

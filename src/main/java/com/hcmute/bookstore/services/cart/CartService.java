@@ -8,6 +8,7 @@ import com.hcmute.bookstore.models.ProductImage;
 import com.hcmute.bookstore.repository.OrderItemRepository;
 import com.hcmute.bookstore.repository.OrderRepository;
 import com.hcmute.bookstore.repository.ProductImageRepository;
+import com.hcmute.bookstore.repository.ProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,7 @@ public class CartService implements ICartService{
     private final OrderItemRepository orderItemRepository;
     private final OrderRepository orderRepository;
     private final ProductImageRepository productImageRepository;
+    private final ProductRepository productRepository;
     @Override
     public String showCart(HttpServletRequest request,int id) {
         HttpSession session = request.getSession();
@@ -126,13 +128,23 @@ public class CartService implements ICartService{
                 out.print(false);
                 out.flush();
             } else {
-                orderItem.get().setQuantity(quantity);
-                orderItemRepository.save(orderItem.get());
-                PrintWriter out = response.getWriter();
-                response.setContentType("application/json");
-                response.setCharacterEncoding("utf-8");
-                out.print(true);
-                out.flush();
+                Optional<Product> product = productRepository.findProductByID(orderItem.get().getProductId());
+                if(quantity > product.get().getQuantity()){
+
+                    PrintWriter out = response.getWriter();
+                    response.setContentType("application/json");
+                    response.setCharacterEncoding("utf-8");
+                    out.print(false);
+                    out.flush();
+                }else{
+                    orderItem.get().setQuantity(quantity);
+                    orderItemRepository.save(orderItem.get());
+                    PrintWriter out = response.getWriter();
+                    response.setContentType("application/json");
+                    response.setCharacterEncoding("utf-8");
+                    out.print(true);
+                    out.flush();
+                }
             }
         }
     }
