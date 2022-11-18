@@ -17,12 +17,18 @@ public class HomeService implements IHomeService{
     private final ProductImageRepository productImageRepository;
     @Override
     public String showHomePage(ModelMap modelMap) {
-        List<Product> listProduct = productRepository.findProductByDiscount();
-        for (Product pro:listProduct) {
+        List<Product> listProductDiscount = productRepository.findProductByDiscount();
+        for (Product pro:listProductDiscount) {
             List<ProductImage> productImages = productImageRepository.findImageByProID(pro.getId());
             pro.setProductImages(productImages);
         }
-        modelMap.addAttribute("products",listProduct);
+        List<Product>  listProductPrice = productRepository.findProductByPrice();
+        for (Product pro:listProductPrice) {
+            List<ProductImage> productImages = productImageRepository.findImageByProID(pro.getId());
+            pro.setProductImages(productImages);
+        }
+        modelMap.addAttribute("productsDiscount",listProductDiscount);
+        modelMap.addAttribute("productsPrice",listProductPrice);
         return "viewHome/Index";
     }
 }

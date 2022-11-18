@@ -7,7 +7,7 @@
         <script>
             $(document).ready(function() {
                 $('.t1').after('<div id="nav1" class="text-center mt-2 mb-2"></div>');
-                let itemsShown = 1;
+                let itemsShown = 8;
                 let itemsTotal = $('.t1 .item1').length;
                 let numPages = itemsTotal / itemsShown;
                 for (let i = 0; i < numPages; i++) {
@@ -36,7 +36,7 @@
         <div class="border mt-2 pr-0 ">
             <div class="d-flex flex-wrap t1">
                 <c:forEach items="${products}" var="product">
-                    <div class="item1 card mx-auto" style="width: 15rem;">
+                    <div class="item1 card" style="width: 15rem;">
                         <a href="/product/${product.id}">
                             <img src="${product.productImages.get(0).img_src}" class="card-img-top" alt="...">
                         </a>

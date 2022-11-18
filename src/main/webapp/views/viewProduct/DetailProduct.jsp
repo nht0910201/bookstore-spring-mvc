@@ -12,7 +12,7 @@
                     if (data === false) {
                         swal({
                             title: "Không thể thêm!",
-                            text: "Sản phẩm đã có trong giỏ hàng !",
+                            text: "Sản phẩm đã có trong giỏ hàng hoặc đã hết hàng !",
                             icon: "error",
                             button: "OK!",
                             dangerMode: true,
@@ -76,21 +76,6 @@
             <div class="col-sm-4 p-3">
                 <h5>Tóm tắt nội dung</h5>
                 <p>${product.description}</p>
-            </div>
-        </div>
-        <hr class="w-100  mt-5 mx-auto bg-primary">
-        <div class="border mt-2 pr-0 ">
-            <h3 class="bg-primary text-white text-center">SẢN PHẨM LIÊN QUAN</h3>
-            <div class="d-flex flex-wrap t1">
-                <div class="item1 card mx-auto" style="width: 15rem;">
-                    <img src="https://picsum.photos/200/300" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Name</h5>
-                        <p class="card-text" style="text-decoration-line: line-through">Price}</p>
-                        <p class="card-text text-danger">Discount</p>
-                        <p class="card-text font-weight-bold">Price New</p>>
-                    </div>
-                </div>
             </div>
         </div>
     </jsp:body>

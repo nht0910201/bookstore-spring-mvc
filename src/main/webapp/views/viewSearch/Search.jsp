@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="m1" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<jsp:useBean id="product" scope="request" type="com.hcmute.bookstore.models.Product"/>
+<jsp:useBean id="products" scope="request" type="java.util.List<com.hcmute.bookstore.models.Product>"/>
 <m1:MainLayout>
     <jsp:attribute name="js">
         <script>
@@ -41,21 +41,33 @@
     <jsp:body>
         <div class="text-danger">
             <h5 class="mt-4 ml-2 font-weight-bold">Result for search: <span class="text-primary" id="resSearch"></span> </h5>
-<%--            <h5 class="mt-4 ml-1">(${products.size()} products)</h5>--%>
         </div>
+        <c:if test="${hasError}">
+            <div class="alert alert-danger alert-dismissible fade show w-100 mx-auto" role="alert">
+                <strong>Add Category Fail: </strong> ${errorMessage}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </c:if>
         <div class="border mt-2 pr-0 ">
             <div class="d-flex flex-wrap t1">
-                <div class="item1 card mx-auto" style="width: 15rem;">
-                    <a href="/product/${product.id}">
-                        <img src="${product.productImages.get(0).img_src}" class="card-img-top" alt="...">
-                    </a>
-                    <div class="card-body">
-                        <h5 class="card-title">${product.name}</h5>
-                        <p class="card-text" style="text-decoration-line: line-through">${product.price}</p>
-                        <p class="card-text text-danger">${product.discount}%</p>
-                        <p class="card-text font-weight-bold">${product.price-((product.price*product.discount)/100)}</p>
+                <c:forEach items="${products}" var="product">
+                    <div class="item1 card mx-auto" style="width: 15rem;">
+                        <a href="/product/${product.id}">
+                            <img src="${product.productImages.get(0).img_src}" class="card-img-top" alt="...">
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title">${product.name}</h5>
+                            <p class="card-text text-danger">Giảm giá: ${product.discount}%</p>
+                            <div class="d-flex justify-content-between">
+                                Price:
+                                <p class="card-text font-weight-bold">${product.price-((product.price*product.discount)/100)}</p>
+                                <p class="card-text" style="text-decoration-line: line-through">${product.price}</p>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </c:forEach>
             </div>
         </div>
     </jsp:body>

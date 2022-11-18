@@ -12,6 +12,9 @@ public interface ProductRepository extends JpaRepository<Product,Integer> {
     @Query(value = "select * from products where state='enable' order by discount desc",nativeQuery = true)
     List<Product> findProductByDiscount();
 
+    @Query(value = "select * from products where state='enable' order by price asc",nativeQuery = true)
+    List<Product> findProductByPrice();
+
     @Query(value = "select * from products where id=:id and state ='enable'",nativeQuery = true)
     Optional<Product> findProductByID(@Param("id") int id);
 
@@ -30,5 +33,5 @@ public interface ProductRepository extends JpaRepository<Product,Integer> {
     List<Product> findProductViaCategoryByAdmin(@Param("id") int id);
 
     @Query(value = "select * from products where name like %:search% and state='enable'",nativeQuery = true)
-    Optional<Product> searchProduct(@Param("search") String search);
+    List<Product> searchProduct(@Param("search") String search);
 }

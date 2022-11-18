@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Auction Web Application</title>
+    <title>Book Store</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
@@ -21,7 +21,7 @@
                     <h1 class="card-title">Oops.</h1>
                     <h2 class="text-danger">204. We cannot find the specific data.</h2>
                     <p class="card-text">Sorry, an error has occurred.</p>
-                    <a class="btn btn-primary" href="#" role="button">
+                    <a class="btn btn-primary" href="/Home" role="button">
                     <i class="fa fa-arrow-left" aria-hidden="true"></i>
                     Back</a>
                     <a class="btn btn-success" href="#" role="button">

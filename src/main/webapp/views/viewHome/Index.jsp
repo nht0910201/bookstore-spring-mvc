@@ -1,13 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="m1" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<jsp:useBean id="products" scope="request" type="java.util.List<com.hcmute.bookstore.models.Product>"/>
+<jsp:useBean id="productsDiscount" scope="request" type="java.util.List<com.hcmute.bookstore.models.Product>"/>
+<jsp:useBean id="productsPrice" scope="request" type="java.util.List<com.hcmute.bookstore.models.Product>"/>
 <m1:MainLayout>
     <jsp:attribute name="js">
         <script>
             $(document).ready(function() {
                 $('.t1').after('<div id="nav1" class="text-center mt-2 mb-2"></div>');
-                let itemsShown = 1;
+                let itemsShown = 4;
                 let itemsTotal = $('.t1 .item1').length;
                 let numPages = itemsTotal / itemsShown;
                 for (let i = 0; i < numPages; i++) {
@@ -32,7 +33,7 @@
             });
             $(document).ready(function() {
                 $('.t2').after('<div id="nav2" class="text-center mt-2 mb-2"></div>');
-                let itemsShown = 3;
+                let itemsShown = 4;
                 let itemsTotal = $('.t2 .item2').length;
                 let numPages = itemsTotal / itemsShown;
                 for (let i = 0; i < numPages; i++) {
@@ -61,64 +62,43 @@
         <div class="border mt-2 pr-0 ">
             <h2 class="bg-danger text-white text-center">TOP SALE</h2>
             <div class="d-flex flex-wrap t1">
-                <c:forEach items="${products}" var="product">
-                    <div class="item1 card mx-auto" style="width: 15rem;">
+                <c:forEach items="${productsDiscount}" var="product">
+                    <div class="item1 card" style="width: 15rem;">
                         <a href="/product/${product.id}">
                             <img src="${product.productImages.get(0).img_src}" class="card-img-top" alt="...">
                         </a>
                         <div class="card-body">
                             <h5 class="card-title">${product.name}</h5>
-                            <p class="card-text" style="text-decoration-line: line-through">${product.price}</p>
-                            <p class="card-text text-danger">${product.discount}%</p>
-                            <p class="card-text font-weight-bold">${product.price-((product.price*product.discount)/100)}</p>
+                            <p class="card-text text-danger">Giảm giá: ${product.discount}%</p>
+                            <div class="d-flex justify-content-between">
+                                Price:
+                                <p class="card-text font-weight-bold">${product.price-((product.price*product.discount)/100)}</p>
+                                <p class="card-text" style="text-decoration-line: line-through">${product.price}</p>
+                            </div>
                         </div>
                     </div>
                 </c:forEach>
             </div>
         </div>
         <div class="border mt-2 pr-0">
-            <h2 class="bg-danger text-white text-center">TOP NEW</h2>
+            <h2 class="bg-danger text-white text-center">TOP PRICE</h2>
             <div class=" d-flex flex-wrap t2">
-                <div class="item2 card ml-2 mb-1" style="width: 15rem;">
-                    <img src="https://picsum.photos/200/300" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                <c:forEach items="${productsPrice}" var="product">
+                    <div class="item2 card" style="width: 15rem;">
+                        <a href="/product/${product.id}">
+                            <img src="${product.productImages.get(0).img_src}" class="card-img-top" alt="...">
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title">${product.name}</h5>
+                            <p class="card-text text-danger">Discount: ${product.discount}%</p>
+                            <div class="d-flex justify-content-between">
+                                Price:
+                                <p class="card-text font-weight-bold">${product.price-((product.price*product.discount)/100)}</p>
+                                <p class="card-text" style="text-decoration-line: line-through">${product.price}</p>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="item2 card ml-2 mb-1" style="width: 15rem;">
-                    <img src="https://picsum.photos/200/300" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-                <div class="item2 card ml-2 mb-1" style="width: 15rem;">
-                    <img src="https://picsum.photos/200/300" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-                <div class=" item2 card ml-2 mb-1" style="width: 15rem;">
-                    <img src="https://picsum.photos/200/300" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-                <div class="item2 card ml-2 mb-1" style="width: 15rem;">
-                    <img src="https://picsum.photos/200/300" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
+                </c:forEach>
             </div>
         </div>
     </jsp:body>

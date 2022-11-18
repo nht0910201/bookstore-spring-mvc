@@ -30,8 +30,7 @@ public class CartService implements ICartService{
     @Override
     public String showCart(HttpServletRequest request,int id) {
         HttpSession session = request.getSession();
-        boolean checkAuth = (boolean) session.getAttribute("auth");
-        String roleAuth = (String) session.getAttribute("role");
+        boolean checkAuth = (boolean) session.getAttribute("auth");        String roleAuth = (String) session.getAttribute("role");
         if (checkAuth && roleAuth.equals(Constant.ROLE_CUSTOMER)) {
             Optional<Order> order = orderRepository.isUserHasCart(id);
             if(order.isPresent()) {
@@ -82,13 +81,22 @@ public class CartService implements ICartService{
                     out.flush();
                 }else {
                     check = orderRepository.isUserHasCart(userId);
-                    OrderItem newOrderItem = new OrderItem(pro_id,pro_name,quantity,price,discount,check.get().getId(),userId);
-                    orderItemRepository.save(newOrderItem);
-                    PrintWriter out = response.getWriter();
-                    response.setContentType("application/json");
-                    response.setCharacterEncoding("utf-8");
-                    out.print(true);
-                    out.flush();
+                    Optional<Product> pro = productRepository.findProductByID(pro_id);
+                    if(pro.get().getQuantity() < quantity){
+                        PrintWriter out = response.getWriter();
+                        response.setContentType("application/json");
+                        response.setCharacterEncoding("utf-8");
+                        out.print(false);
+                        out.flush();
+                    }else{
+                        OrderItem newOrderItem = new OrderItem(pro_id,pro_name,quantity,price,discount,check.get().getId(),userId);
+                        orderItemRepository.save(newOrderItem);
+                        PrintWriter out = response.getWriter();
+                        response.setContentType("application/json");
+                        response.setCharacterEncoding("utf-8");
+                        out.print(true);
+                        out.flush();
+                    }
                 }
             }
             else
@@ -101,13 +109,22 @@ public class CartService implements ICartService{
                     out.print(false);
                     out.flush();
                 }else {
-                    OrderItem newOrderItem = new OrderItem(pro_id,pro_name,quantity,price,discount,check.get().getId(),userId);
-                    orderItemRepository.save(newOrderItem);
-                    PrintWriter out = response.getWriter();
-                    response.setContentType("application/json");
-                    response.setCharacterEncoding("utf-8");
-                    out.print(true);
-                    out.flush();
+                    Optional<Product> pro = productRepository.findProductByID(pro_id);
+                    if(pro.get().getQuantity() < quantity){
+                        PrintWriter out = response.getWriter();
+                        response.setContentType("application/json");
+                        response.setCharacterEncoding("utf-8");
+                        out.print(false);
+                        out.flush();
+                    }else{
+                        OrderItem newOrderItem = new OrderItem(pro_id,pro_name,quantity,price,discount,check.get().getId(),userId);
+                        orderItemRepository.save(newOrderItem);
+                        PrintWriter out = response.getWriter();
+                        response.setContentType("application/json");
+                        response.setCharacterEncoding("utf-8");
+                        out.print(true);
+                        out.flush();
+                    }
                 }
             }
         }
