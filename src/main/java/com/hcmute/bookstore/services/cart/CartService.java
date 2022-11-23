@@ -30,7 +30,8 @@ public class CartService implements ICartService{
     @Override
     public String showCart(HttpServletRequest request,int id) {
         HttpSession session = request.getSession();
-        boolean checkAuth = (boolean) session.getAttribute("auth");        String roleAuth = (String) session.getAttribute("role");
+        boolean checkAuth = (boolean) session.getAttribute("auth");
+        String roleAuth = (String) session.getAttribute("role");
         if (checkAuth && roleAuth.equals(Constant.ROLE_CUSTOMER)) {
             Optional<Order> order = orderRepository.isUserHasCart(id);
             if(order.isPresent()) {

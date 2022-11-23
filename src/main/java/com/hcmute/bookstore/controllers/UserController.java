@@ -26,4 +26,12 @@ public class UserController {
     public String update(ModelMap modelMap, HttpServletRequest request, @PathVariable int id){
         return userService.update(modelMap, request,id);
     }
+    @GetMapping("/changePass")
+    public String changePass(HttpServletRequest request,HttpServletResponse response){
+        return userService.showChangePass(request,response);
+    }
+    @PostMapping("/changePass/{id}")
+    public String updatePass(HttpServletRequest request, HttpServletResponse response,@PathVariable int id){
+        return userService.changePass(request,response,id);
+    }
 }

@@ -10,6 +10,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -22,8 +24,8 @@ public class AuthController {
     @Autowired
     UserRepository userRepository;
     @GetMapping("/login")
-    public String showLogin(){
-        return "viewAuth/Login";
+    public String showLogin(HttpServletRequest request){
+        return authService.showLoginPage(request);
     }
     @PostMapping("/login")
     public String login(ModelMap modelMap, HttpServletRequest request){
@@ -34,12 +36,20 @@ public class AuthController {
         return authService.logout(request);
     }
     @GetMapping("/register")
-    public String showRegister(){
-        return "viewAuth/Register";
+    public String showRegister(HttpServletRequest request){
+        return authService.showRegisterPage(request);
     }
     @PostMapping(value = "/register")
     public String register(ModelMap modelMap, HttpServletRequest request) {
         return authService.register(modelMap,request);
+    }
+    @GetMapping("/resetPassword")
+    public String resetPass(HttpServletRequest request){
+       return authService.resetPass(request);
+    }
+    @PostMapping("/updatePass")
+    public String updatePass (HttpServletRequest request,HttpServletResponse response) throws MessagingException {
+        return authService.updatePass(request,response);
     }
     @GetMapping("/sendOTP")
     public void sendOTP(HttpServletRequest request, HttpServletResponse response) throws IOException{

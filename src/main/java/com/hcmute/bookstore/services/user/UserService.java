@@ -1,5 +1,6 @@
 package com.hcmute.bookstore.services.user;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.hcmute.bookstore.Config.Constant;
 import com.hcmute.bookstore.models.User;
 import com.hcmute.bookstore.repository.UserRepository;
@@ -124,6 +125,43 @@ public class UserService implements IUserService{
                     }
                 }
             }
+        }
+    }
+
+    @Override
+    public String showChangePass(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        boolean checkAuth = (boolean) session.getAttribute("auth");
+        String roleAuth = (String) session.getAttribute("role");
+        if (checkAuth && roleAuth.equals(Constant.ROLE_CUSTOMER)) {
+            return "viewAccount/ChangePass";
+        } else {
+            return "redirect:/Home";
+        }
+    }
+
+    @Override
+    public String changePass(HttpServletRequest request, HttpServletResponse response, int id) {
+        Optional<User> user = userRepository.findUserByID(id);
+        if(user.isPresent()){
+            String oldPass = request.getParameter("oldPass");
+            BCrypt.Result result = BCrypt.verifyer().verify(oldPass.toCharArray(), user.get().getPassword());
+            if(result.verified){
+                String newPass = request.getParameter("newPass");
+                String raw = BCrypt.withDefaults().hashToString(12, newPass.toCharArray());
+                user.get().setPassword(raw);
+                userRepository.save(user.get());
+                HttpSession session = request.getSession();
+                session.setAttribute("auth", false);
+                session.setAttribute("authUser", new User());
+                return "redirect:/auth/login";
+            }else{
+                request.setAttribute("hasError", true);
+                request.setAttribute("errorMessage", "Old Password incorrect");
+                return "viewAccount/ChangePass";
+            }
+        }else{
+            return "204";
         }
     }
 }

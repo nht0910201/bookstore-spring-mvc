@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebFilter(filterName = "AuthFilter",
-        value = {"/account/profile/*", "/admin/*"})
+        value = {"/user/*", "/admin/*","/cart/*","/order/*"})
 public class AuthFilter implements Filter {
     public void init(FilterConfig config) throws ServletException {
     }

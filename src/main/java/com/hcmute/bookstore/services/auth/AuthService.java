@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -22,6 +23,17 @@ import java.util.Optional;
 @Service
 public class AuthService implements IAuthService {
     private final UserRepository userRepository;
+
+    @Override
+    public String showLoginPage(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        boolean checkAuth = (boolean) session.getAttribute("auth");
+        if(checkAuth){
+            return "redirect:/Home";
+        }else{
+            return "viewAuth/Login";
+        }
+    }
 
     @Override
     public String login(ModelMap modelMap, HttpServletRequest request) {
@@ -45,6 +57,17 @@ public class AuthService implements IAuthService {
             modelMap.addAttribute("hasError", true);
             modelMap.addAttribute("errorMessage", "Incorrect Email or Password");
             return "viewAuth/Login";
+        }
+    }
+
+    @Override
+    public String showRegisterPage(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        boolean checkAuth = (boolean) session.getAttribute("auth");
+        if(checkAuth){
+            return "redirect:/Home";
+        }else{
+            return "viewAuth/Register";
         }
     }
 
@@ -81,6 +104,37 @@ public class AuthService implements IAuthService {
                     return "viewAuth/Register";
                 }
             }
+        }
+    }
+
+    @Override
+    public String resetPass(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        boolean checkAuth = (boolean) session.getAttribute("auth");
+        if(checkAuth){
+            return "redirect:/Home";
+        }else{
+            return "viewAuth/ResetPassword";
+        }
+    }
+
+    @Override
+    public String updatePass(HttpServletRequest request, HttpServletResponse response) throws MessagingException {
+        String email = request.getParameter("email");
+        Optional<User> user = userRepository.findUserByEmail(email);
+        if (user.isEmpty()){
+            request.setAttribute("hasError", true);
+            request.setAttribute("errorMessage", "Cannot find account with email");
+            return "viewAuth/ResetPassword";
+        }else{
+            String pass = "123456abc.";
+            String newPass =BCrypt.withDefaults().hashToString(12, pass.toCharArray());
+            user.get().setPassword(newPass);
+            userRepository.save(user.get());
+            MailUtils.sendPassword(email,pass);
+            request.setAttribute("hasNotify", true);
+            request.setAttribute("successMessage", "New password has been sent to your email. Please check email and log in again");
+            return "viewAuth/ResetPassword";
         }
     }
 

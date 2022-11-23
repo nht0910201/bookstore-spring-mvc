@@ -20,7 +20,7 @@
         <div class="mx-auto col-lg-5 mt-lg-5" >
             <form class="p-5 mx-auto border rounded-lg shadow bg-light" id="formLogin" method="post">
                 <div class="text-center mb-3">
-                    <h3 class="text-primary" style="font-family: 'Russo One',sans-serif">Sign In</h3>
+                    <h3 class="text-primary" style="font-family: 'Russo One',sans-serif">LOG IN</h3>
                     <i class="fa fa-user-circle fa-3x mx-auto" aria-hidden="true"></i>
                 </div>
                     <%--Alert--%>
@@ -45,22 +45,22 @@
                     <button type="submit" class="btn btn-primary w-100" id="btnLogIn">LOG IN</button>
                 </div>
                 <div class="text-center mt-2">
-                    <a class="text-primary" href="#">
+                    <a class="text-primary" href="${pageContext.request.contextPath}/auth/resetPassword">
                         Forgot Password ?
                     </a>
                 </div>
 
-                <hr class="w-75 mx-auto bg-primary">
-                <!-- Đăng nhập với Google -->
-                <div class="text-center">
-                        <%--Sửa port ở đây--%>
-                    <a class="btn btn-outline-success" href="https://accounts.google.com/o/oauth2/auth?scope=https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email&redirect_uri=http://localhost:8080/auctionWebApp/Account/GoogleLogin&response_type=code
-    &client_id=968786308056-9k67nqlp92f8m7ak4060b75n1pjsfj0n.apps.googleusercontent.com&approval_prompt=force"
-                       role="button">
-                        <i class="fa fa-google-plus mr-3" aria-hidden="true"></i>
-                        LOGIN WITH GOOGLE
-                    </a>
-                </div>
+<%--                <hr class="w-75 mx-auto bg-primary">--%>
+<%--                <!-- Đăng nhập với Google -->--%>
+<%--                <div class="text-center">--%>
+<%--                        &lt;%&ndash;Sửa port ở đây&ndash;%&gt;--%>
+<%--                    <a class="btn btn-outline-success" href="https://accounts.google.com/o/oauth2/auth?scope=https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email&redirect_uri=http://localhost:8080/auctionWebApp/Account/GoogleLogin&response_type=code--%>
+<%--    &client_id=968786308056-9k67nqlp92f8m7ak4060b75n1pjsfj0n.apps.googleusercontent.com&approval_prompt=force"--%>
+<%--                       role="button">--%>
+<%--                        <i class="fa fa-google-plus mr-3" aria-hidden="true"></i>--%>
+<%--                        LOGIN WITH GOOGLE--%>
+<%--                    </a>--%>
+<%--                </div>--%>
                 <div class="text-center mt-3">
                     I don't have an account ?
                     <a href="${pageContext.request.contextPath}/auth/register">SIGN UP</a>

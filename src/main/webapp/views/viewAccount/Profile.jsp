@@ -11,6 +11,7 @@
         <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
         <script>
             const oldEmail = $('#updateEmail').val();
+
             function handleChange() {
                 let newEmail = $('#updateEmail').val()
                 if (oldEmail !== newEmail) {
@@ -19,7 +20,7 @@
                     // Gửi OTP
                     $('#btnOTP').on('click', function () {
                         $('#btnOTP').html('<div class="spinner-grow text-primary" role="status"> <span class="sr-only">Loading...</span></div>');
-                        if ($('#updateEmail').val() ==='') {
+                        if ($('#updateEmail').val() === '') {
                             swal({
                                 title: "Invalid email!",
                                 text: "Please fill your valid email!",
@@ -66,7 +67,7 @@
                         const otp = $('#updateOtp').val();
                         // Check OTP
                         if (otp !== '') {
-                            $.getJSON('${pageContext.request.contextPath}/auth/sendOTP?email=' + email+'&otp=' +otp, function (otpData) {
+                            $.getJSON('${pageContext.request.contextPath}/auth/sendOTP?email=' + email + '&otp=' + otp, function (otpData) {
                                 if (otpData === false) {
                                     swal({
                                         title: "Wrong OTP!",
@@ -169,7 +170,7 @@
                         </button>
                     </div>
                     <div class="text-center">
-                        <a id="btnChangePass" class="btn btn-outline-danger" href="#" role="button">
+                        <a class="btn btn-outline-danger" href="${pageContext.request.contextPath}/user/changePass" role="button">
                             Change Password
                             <i class="fa fa-refresh" aria-hidden="true"></i>
                         </a>

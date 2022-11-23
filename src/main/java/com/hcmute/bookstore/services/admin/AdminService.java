@@ -309,7 +309,7 @@ public class AdminService implements IAdminService {
                 request.setAttribute("errorMessage", "Phone number already exist");
                 return "viewAdmin/AddUser";
             } else {
-                String pwd = "123456a.";
+                String pwd = "123456abc.";
                 String rawPassword = BCrypt.withDefaults().hashToString(12, pwd.toCharArray());
                 User newUser = new User(name, email, rawPassword, phone, role, Constant.ACTIVE);
                 userRepository.save(newUser);
