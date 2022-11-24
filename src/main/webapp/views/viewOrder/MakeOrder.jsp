@@ -66,7 +66,7 @@
                     <c:forEach items="${orderItems}" var="orderItem">
                         <div class="media p-2 justify-content-around" style="border: 1px solid black">
                             <img src="${orderItem.image}" class="img-fluid w-25" alt="...">
-                            <div class="media-body">
+                            <div class="media-body ml-2">
                                 <h4 class="mt-2">${orderItem.productName}</h4>
                                 <div class="d-flex mt-1">
                                    Số lượng: <input readonly type="tel" value="${orderItem.quantity}">

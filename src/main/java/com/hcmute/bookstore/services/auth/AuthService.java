@@ -47,7 +47,11 @@ public class AuthService implements IAuthService {
                 session.setAttribute("auth", true);
                 session.setAttribute("authUser", userRepository.findById(user.get().getId()).get());
                 session.setAttribute("role", user.get().getRole());
-                return "redirect:/Home";
+                if(user.get().getRole().equals(Constant.ROLE_ADMIN)){
+                    return "redirect:/admin/manage";
+                }else{
+                    return "redirect:/Home";
+                }
             } else {
                 modelMap.addAttribute("hasError", true);
                 modelMap.addAttribute("errorMessage", "Incorrect Email or Password");
