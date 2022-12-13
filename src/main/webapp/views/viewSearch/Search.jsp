@@ -7,7 +7,7 @@
         <script>
             $(document).ready(function () {
                 $('.t1').after('<div id="nav1" class="text-center mt-2 mb-2"></div>');
-                let itemsShown = 1;
+                let itemsShown = 8;
                 let itemsTotal = $('.t1 .item1').length;
                 let numPages = itemsTotal / itemsShown;
                 for (let i = 0; i < numPages; i++) {
